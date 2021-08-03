@@ -22,11 +22,7 @@ mongo = PyMongo(app)
 def index():
     return "H"
 
-@app.route("/index")
-def index():
-    return "H"
-    #famous_irish_people = mongo.db.famous_irish_people.find()
-    #return render_template("index.html", famous_irish_people=famous_irish_people)
+
 
 
 if __name__ == "__main__":
