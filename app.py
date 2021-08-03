@@ -19,10 +19,11 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
+@app.route("/get_events")
 def index():
-    return "H"
 
-
+    events = mongo.db.events.find()
+    return render_template("index.html", events=events)
 
 
 if __name__ == "__main__":
