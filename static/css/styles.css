@@ -2,3 +2,15 @@
   background-color: #80F;
   color: #ffffff;
 }
+
+
+.register-form {
+  padding: 20px;
+}
+
+.register-form input {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
