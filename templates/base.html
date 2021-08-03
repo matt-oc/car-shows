@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
@@ -10,51 +9,40 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
   <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" type="text/css" />
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
 </head>
 
 
 <body>
   <!--Navigation Bar-->
-  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <a class="navbar-brand" href="{{ url_for('index') }}">
-      <h2>StaticWickedCats</h2>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile" aria-controls="navbar-mobile" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-  </nav>
   <!--/Navigation Bar-->
 
-{% for event in events %}
-{{ event.event_name}}<br>
-{{ event.category_name}}
-{% endfor %}
 
+
+  <!--Content-->
+  <h1> Car Shows </h1>
+  {% block content %} {% endblock %}
+  <!--/Content-->
+
+  <!-- flash messages -->
+  <section>
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for
+    message in messages %}
+    <div class="container-fluid d-flex align-items-center justify-content-center mt-5">
+
+      <div id="question-text">
+        <h4 class="flash_message">{{ message }}</h4>
+      </div>
+
+    </div>
+
+    {% endfor %} {% endif %} {% endwith %}
+  </section>
 
   <!--Footer-->
   <footer id="footer">
-    <ul class="social-links">
-      <li class="list-inline-item">
-        <a target="_blank" href="https://www.facebook.com">
-          <i class="fab fa-facebook" aria-hidden="true"></i>
-          <span class="sr-only">Facebook</span>
-        </a>
-      </li>
-      <li class="list-inline-item">
-        <a target="_blank" href="https://www.instagram.com">
-          <i class="fab fa-instagram" aria-hidden="true"></i>
-          <span class="sr-only">Instagram</span>
-        </a>
-      </li>
-      <li class="list-inline-item">
-        <a target="_blank" href="https://twitter.com">
-          <i class="fab fa-twitter" aria-hidden="true"></i>
-          <span class="sr-only">Twitter</span>
-        </a>
-      </li>
-    </ul>
+
   </footer>
   <!--/Footer-->
 
@@ -64,7 +52,7 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous">
   </script>
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </body>
 
 </html>

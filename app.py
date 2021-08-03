@@ -23,7 +23,7 @@ mongo = PyMongo(app)
 def index():
 
     events = mongo.db.events.find()
-    return render_template("index.html", events=events)
+    return render_template("events.html", events=events)
 
 
 if __name__ == "__main__":
