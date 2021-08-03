@@ -23,26 +23,14 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile" aria-controls="navbar-mobile" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbar-mobile">
-      <ul class="navbar-nav ml-auto bwc-nav-list text-center">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('index') }}">Home<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('get_leaderboard') }}">Leaderboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('info') }}">Info</a>
-        </li>
-      </ul>
-    </div>
+  
   </nav>
   <!--/Navigation Bar-->
 
 {% for event in events %}
 {{ event.event_name}}
 {{ event. event_category}}
-{% end for %}
+{% endfor %}
 
 
   <!--Footer-->
