@@ -38,12 +38,16 @@ def register():
 
         register = {
         "user": request.form.get("name").lower(),
-        "password": generate_password_hash(request.form.get("password"),
+        "password": generate_password_hash(request.form.get("password")),
         "email": request.form.get("email"),
         "car_owned": request.form.get("car_owned")
-        )
         }
 
+        mongo.db.users.insert_one(register)
+
+        # Session for new user
+        session["user"] = request.form.get("username").lower()
+        flash("Thanks for registering")
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
