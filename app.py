@@ -29,7 +29,21 @@ def get_events():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    return render_template("events.html", events=events)
+    if request.method == "POST":
+        existing_user = mongo.db.users.find_one({"name":request.form.get("name").lower()})
+
+        if existing_user:
+            flash("Username is already registered")
+            return redirect(url_for("register"))
+
+        register = {
+        "user": request.form.get("name").lower(),
+        "password": generate_password_hash(request.form.get("password"),
+        "email": request.form.get("email"),
+        "car_owned": request.form.get("car_owned")
+        )
+        }
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

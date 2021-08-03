@@ -85,16 +85,16 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="https://formspree.io/f/mqkgvaea" method="POST" id="register" class="register-form">
+            <form action="{{ url_for('register')" method="POST" id="register" class="register-form">
               <fieldset>
                 <label for="name">Username:</label><br>
-                <input type="text" id="name" required name="name"><br>
+                <input type="text" id="name" required pattern="^[a-zA-z0-9](5,14)$" name="name"><br>
                 <label for="email">Email:</label><br>
                 <input type="Email" id="email" name="email" required><br>
                 <label for="password">Password:</label><br>
-                <input type="password" id="password" name="password"><br>
+                <input type="password" id="password" name="password" pattern="^[a-zA-z0-9](5,14)$" minlength="5" maxlength="14" required><br>
                 <label for="car">Car Owned:</label><br>
-                <input type="car" id="car" name="car"><br>
+                <input type="car" id="car" name="car" required><br>
 
                 <div class="submit-btn-container">
                   <button type="submit" class="btn contact-btn-submit" id="contact-submit" data-submit="Sending">Submit</button>
