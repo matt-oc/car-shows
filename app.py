@@ -4,6 +4,7 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import random
+from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timedelta
 
 if os.path.exists("env.py"):
@@ -20,11 +21,15 @@ mongo = PyMongo(app)
 
 @app.route("/")
 @app.route("/get_events")
-def index():
+def get_events():
 
     events = mongo.db.events.find()
     return render_template("events.html", events=events)
 
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    return render_template("events.html", events=events)
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

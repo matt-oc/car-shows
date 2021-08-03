@@ -16,7 +16,7 @@
 <body>
   <!--Navigation Bar-->
   <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="{{ url_for('get_events') }}">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -24,10 +24,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{{ url_for('get_events') }}">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Events</a>
+          <a class="nav-link" href="{{ url_for('get_events') }}">Events</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Profile</a>
@@ -36,7 +36,7 @@
           <a class="nav-link" href="#">New Event</a>
         </li>
         <li class="nav-item">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
   Register
 </button>
         </li>
@@ -75,17 +75,32 @@
   <!--Register-->
   <section>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="registerModal" tabindex="-1"  aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="registerModalLabel">Register Now</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            ...
+            <form action="https://formspree.io/f/mqkgvaea" method="POST" id="contact" class="contact">
+              <fieldset>
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" required name="name"><br>
+                <label for="email">Email:</label><br>
+                <input type="Email" id="email" name="email" required><br>
+                <label for="phone">Phone:</label><br>
+                <input type="number" id="phone" name="phone"><br>
+                <label for="message">Message:</label><br>
+                <textarea id="message" name="message"></textarea><br>
+                <div class="submit-btn-container">
+                  <button type="submit" class="btn contact-btn-submit" id="contact-submit" data-submit="Sending">Submit</button>
+                </div>
+
+              </fieldset>
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
