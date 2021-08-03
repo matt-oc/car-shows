@@ -19,9 +19,17 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-
+def index():
+    return "H"
 
 @app.route("/index")
 def index():
+    return "H"
     #famous_irish_people = mongo.db.famous_irish_people.find()
     #return render_template("index.html", famous_irish_people=famous_irish_people)
+
+
+if __name__ == "__main__":
+    app.run(host=os.environ.get("IP"),
+            port=int(os.environ.get("PORT")),
+            debug=True)
