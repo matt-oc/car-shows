@@ -23,13 +23,13 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile" aria-controls="navbar-mobile" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
   </nav>
   <!--/Navigation Bar-->
 
 {% for event in events %}
-{{ event.event_name}}
-{{ event. event_category}}
+{{ event.event_name}}<br>
+{{ event.category_name}}
 {% endfor %}
 
 
