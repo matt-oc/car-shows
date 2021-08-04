@@ -51,6 +51,12 @@ def register():
 
     return render_template("events.html")
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    return "Test"
+
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
