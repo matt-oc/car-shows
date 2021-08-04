@@ -58,17 +58,25 @@
 
 
   <!--Search Bar-->
+  <section>
   <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 justify-content-center d-flex mt-5 mb-5">
   {% include 'search.html' %}
+</div>
+</div>
   </div>
+</section>
   <!--/Search Bar-->
 
 
   <!--Content-->
+  <section>
   <h1> Car Shows </h1>
   <div class="container-fluid">
   {% block content %} {% endblock %}
 </div>
+</section>
   <!--/Content-->
 
   <!-- flash messages -->
