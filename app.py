@@ -92,6 +92,15 @@ def logout():
     session.pop("user")
     return redirect(url_for("get_events"))
 
+
+@app.errorhandler(404)
+def not_found(e):
+  return render_template('error.html'), 404
+
+@app.errorhandler(500)
+def server_error(e):
+  return render_template('error.html'), 500
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
