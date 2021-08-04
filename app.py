@@ -1,6 +1,7 @@
 import os
 from flask import (
-    Flask, flash, render_template, redirect, session, request, url_for, make_response)
+    Flask, flash, render_template, redirect,
+     session, request, url_for, make_response)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import random
@@ -30,7 +31,8 @@ def get_events():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        existing_user = mongo.db.users.find_one({"user":request.form.get("name").lower()})
+        existing_user = mongo.db.users.find_one(
+        {"user":request.form.get("name").lower()})
 
         if existing_user:
             flash("Username is already registered")
@@ -53,7 +55,18 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    return "Test"
+    if request.method == "POST":
+        existing_user = mongo.db.users.find_one(
+        {"user":request.form.get("name").lower()})
+
+        if existing_user:
+            if check_password_hash(existing_user["password"], request.form.get("password")):
+                session["user"] = request.form.get("name").lower()
+                flash("Welcome back to Irish Car Shows")
+            else:
+                flash("Incorrect login details")
+
+    return render_template("events.html")
 
 
 
