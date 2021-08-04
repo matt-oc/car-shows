@@ -50,6 +50,7 @@ def register():
         # Session for new user
         session["user"] = request.form.get("name").lower()
         flash("Thanks for registering")
+        return redirect(url_for("profile", username=session["user"]))
 
     return render_template("events.html")
 
@@ -63,12 +64,23 @@ def login():
             if check_password_hash(existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("name").lower()
                 flash("Welcome back to Irish Car Shows")
+                return redirect(url_for("profile", username=session["user"]))
+
             else:
                 flash("Incorrect login details")
-
+                return render_template("events.html")
+        else:
+            flash("Incorrect login details")
+            return render_template("events.html")
     return render_template("events.html")
 
 
+
+@app.route("/profile/<username>", methods=["GET", "POST"])
+def profile(username):
+    username = mongo.db.users.find_one(
+    {"user":session["user"]})["user"]
+    return render_template("profile.html", username=username)
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
