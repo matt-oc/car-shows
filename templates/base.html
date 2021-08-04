@@ -57,9 +57,18 @@
 
 
 
+  <!--Search Bar-->
+  <div class="container-fluid">
+  {% include 'search.html' %}
+  </div>
+  <!--/Search Bar-->
+
+
   <!--Content-->
   <h1> Car Shows </h1>
+  <div class="container-fluid">
   {% block content %} {% endblock %}
+</div>
   <!--/Content-->
 
   <!-- flash messages -->
