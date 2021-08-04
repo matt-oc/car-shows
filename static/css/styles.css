@@ -14,3 +14,8 @@
   display: flex;
   justify-content: center;
 }
+
+.card-img-top {
+  max-height: 400px;
+  object-fit: cover;
+}
