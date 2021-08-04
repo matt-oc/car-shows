@@ -71,41 +71,14 @@
 
     {% endfor %} {% endif %} {% endwith %}
   </section>
+  <!--Login-->
 
+  {% include 'login.html' %}
+  
   <!--Register-->
-  <section>
-    <!-- Modal -->
-    <div class="modal fade" id="registerModal" tabindex="-1"  aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="registerModalLabel">Register Now</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form action="{{ url_for('register')}}" method="POST" id="register" class="register-form">
-              <fieldset>
-                <label for="name">Username:</label><br>
-                <input type="text" id="name" required pattern="^[a-zA-Z0-9]{4,14}$" minlength="4" maxlength="14" name="name"><br>
-                <label for="email">Email:</label><br>
-                <input type="Email" id="email" name="email" required><br>
-                <label for="password">Password:</label><br>
-                <input type="password" id="password" name="password" pattern="^[a-zA-Z0-9]{5,14}$" minlength="5" maxlength="14" required><br>
-                <label for="car">Car Owned:</label><br>
-                <input type="car" id="car" name="car" required><br>
-              </fieldset>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" form="register" class="btn contact-btn-submit" id="register-submit" data-submit="Sending">Submit</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+
+  {% include 'register.html' %}
+
   <!--Footer-->
   <footer id="footer">
 
