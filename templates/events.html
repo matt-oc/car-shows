@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!--Search Bar for Events-->
+<section>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 justify-content-center d-flex mt-5 mb-5">
+{% include 'search.html' %}
+</div>
+</div>
+</div>
+</section>
+<!--/Search Bar-->
+
 {% for event in events %}
 {{ event.event_name}}<br>
 <div class="row m-0 p-0">

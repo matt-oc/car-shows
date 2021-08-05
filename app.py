@@ -92,11 +92,30 @@ def logout():
     session.pop("user")
     return redirect(url_for("get_events"))
 
-@app.route("/add_event")
+@app.route("/add_event", methods=["GET", "POST"])
 def add_event():
-    categories = mongo.db.categories.find().sort("category_name", 1)
-    counties = mongo.db.counties.find().sort("county", 1)
-    return render_template("add_event.html", categories=categories, counties=counties)
+        if request.method == "POST":
+            event = {
+            "event_name": request.form.get("eventName"),
+            "event_location": request.form.get("eventLocation"),
+            "event_cost": request.form.get("eventCost"),
+            "event_time": request.form.get("eventTime"),
+            "event_date": request.form.get("eventDate"),
+            "event_image": request.form.get("eventImage"),
+            "category_name": request.form.get("categoryInput"),
+            "event_county": request.form.get("countyInput"),
+            "event_description": request.form.get("eventDescription"),
+            "created_by": session["user"]
+            }
+
+            mongo.db.events.insert_one(event)
+            flash("Event added successfully")
+            return redirect(url_for("get_events"))
+
+
+        categories = mongo.db.categories.find().sort("category_name", 1)
+        counties = mongo.db.counties.find().sort("county", 1)
+        return render_template("add_event.html", categories=categories, counties=counties)
 
 
 @app.errorhandler(404)
