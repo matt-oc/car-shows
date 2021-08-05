@@ -92,6 +92,12 @@ def logout():
     session.pop("user")
     return redirect(url_for("get_events"))
 
+@app.route("/add_event")
+def add_event():
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    counties = mongo.db.counties.find().sort("county", 1)
+    return render_template("add_event.html", categories=categories, counties=counties)
+
 
 @app.errorhandler(404)
 def not_found(e):

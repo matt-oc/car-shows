@@ -19,3 +19,11 @@
   max-height: 400px;
   object-fit: cover;
 }
+
+.add-event-form {
+  max-width: 1200px;
+  width: 70%;
+  padding: 50px;
+  background-color: rgba(178, 212, 187, .7);
+  border-radius: 20px;
+}
