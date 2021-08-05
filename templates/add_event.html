@@ -35,7 +35,7 @@
 </div>
 <div class="form-group">
   <label for="eventDate">Event Date</label>
-<input type="text" class="form-control" id="eventDate" name="eventDate" minlength="3" required>
+  <input id="eventDate" name="eventDate" class="form-control"  readonly="" placeholder="Click to Select Date" required>
 </div>
 <div class="form-group">
   <label for="eventCost">Cost</label>
@@ -45,10 +45,10 @@
     <label for="eventDescription">Event Description</label>
     <textarea class="form-control" id="eventDescription" name="eventDescription" rows="3" required></textarea>
   </div>
-  <div class="form-group">
-    <label for="eventImage">Event Image</label>
-<input id="litepicker" class="form-control"  readonly="">
-
+  <div class="form-group form-image">
+    <label for="eventImage" style="cursor: pointer;"><i class="fas fa-upload"></i> Upload Event Image</label>
+<input type="file" accept="image/*" name="eventImage" id="eventImage" onchange="loadFile(event)"/>
+<img id="output" width="200" />
   </div>
   </fieldset>
   <button type="submit" form="addEvent" class="btn btn-primary" id="addEvent-submit">Submit</button>

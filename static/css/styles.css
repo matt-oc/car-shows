@@ -27,3 +27,15 @@
   background-color: rgba(178, 212, 187, .7);
   border-radius: 20px;
 }
+
+.form-image {
+  min-height: 120px;
+}
+
+#eventImage {
+  display: none;
+}
+
+#output {
+  margin-left: 20px;
+}
