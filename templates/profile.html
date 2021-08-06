@@ -1,21 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 
-<!--Search Bar for Events-->
-<section>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-12 justify-content-center d-flex mt-5 mb-5">
-        {% include 'search.html' %}
-      </div>
-    </div>
+<div class="row">
+  <div class="col-12">
+    <h2>{{ username }}'s Profile</h2>
+    <h4><strong>Your email is:</strong> {{ email }}</h4>
+    <h4><strong>Car owned:</strong> {{ car }}</h4>
   </div>
-</section>
-<!--/Search Bar-->
+</div>
 
-{% if events|length > 0 %}
-<h2> Events List: </h2>
-{% for event in events %}
+<h2> {{ username }}'s Events: </h2>
+{% for event in user_events %}
 <div class="row p-0">
   <div class="col-12 d-flex justify-content-center p-0 content">
     <div class="card mb-3 w-md-60">
@@ -37,16 +32,10 @@
         <a class="btn btn-primary" href="{{url_for('edit_event', event_id=event._id)}}" role="button">Edit</a>
 
         {% endif %}
+
       </div>
     </div>
   </div>
 </div>
-
-
 {% endfor %}
-
-{% else %}
-<h2> No results found </h2>
-{% endif %}
-
 {% endblock %}

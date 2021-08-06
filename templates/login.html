@@ -1,0 +1,30 @@
+<section>
+  <!-- Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Login to Carshows Ireland</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="{{ url_for('login')}}" method="POST" id="login" class="login-form">
+            <fieldset>
+              <label for="name">Username:</label><br>
+              <input type="text" id="name" required pattern="^[a-zA-Z0-9]{4,14}$" minlength="4" maxlength="14" name="name"><br>
+              <label for="password">Password:</label><br>
+              <input type="password" id="password" name="password" pattern="^[a-zA-Z0-9]{5,14}$" minlength="5" maxlength="14" required><br>
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" data-target="#registerModal">New User? Register Here</button>
+          <button type="submit" form="login" class="btn btn-primary" id="login-submit" data-submit="Sending">Submit</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

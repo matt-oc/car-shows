@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2> Edit Event </h2>
+
+<div class="row">
+  <div class="col-12 justify-content-center d-flex content">
+    <form action="{{ url_for('edit_event', event_id=event._id)}}" method="POST" id="editEvent" class="edit-event-form" enctype="multipart/form-data">
+      <fieldset>
+        <div class="form-group">
+          <label for="eventName">Event Name</label>
+          <input type="text" class="form-control" value={{event.event_name}} id="eventName" name="eventName" minlength="3" required>
+        </div>
+        <div class="form-group">
+          <label for="categoryInput">Category</label>
+          <select class="form-control" id="categoryInput" name="categoryInput" size=4 required>
+            <option value="">Choose</option>
+            {% for category in categories %}
+            {% if category.category_name == event.category_name %}
+            <option selected>{{ category.category_name }}</option>
+            {% else %}
+            <option>{{ category.category_name }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="countyInput">County</label>
+          <select class="form-control" id="countyInput" name="countyInput" required>
+            <option value="">Choose</option>
+            {% for county in counties %}
+            {% if county.county == event.county %}
+            <option selected>{{ county.county }}</option>
+            {% else %}
+            <option>{{ county.county }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="eventLocation">Event Location</label>
+          <input type="text" class="form-control" value={{event.event_location}} id="eventLocation" name="eventLocation" minlength="3" required>
+        </div>
+        <div class="form-group">
+          <label for="eventTime">Event time</label>
+          <input type="text" class="form-control" value={{event.event_time}} id="eventTime" name="eventTime" required>
+        </div>
+        <div class="form-group">
+          <label for="eventDate">Event Date</label>
+          <input id="eventDate" name="eventDate" class="form-control" value={{event.event_date}} readonly="" placeholder="Click to Select Date" required>
+        </div>
+        <div class="form-group">
+          <label for="eventCost">Cost</label>
+          <input type="text" class="form-control" id="eventCost" name="eventCost" value={{event.event_cost}} required>
+        </div>
+        <div class="form-group">
+          <label for="eventDescription">Event Description</label>
+          <textarea class="form-control" id="eventDescription" name="eventDescription" rows="3" required>{{event.event_description}}</textarea>
+        </div>
+        <div class="form-group form-image">
+          <label for="eventImage" style="cursor: pointer;"><i class="fas fa-upload"></i> Upload Event Image (Optional)</label>
+          <input type="file" accept="image/*" name="eventImage" id="eventImage" onchange="loadFile(event)" />
+          <img id="output" width="200" src="#" alt="Event_image" />
+        </div>
+      </fieldset>
+      <div class="button-container">
+        <button type="submit" form="editEvent" class="btn btn-primary" id="addEvent-submit">Save</button>
+        <a class="btn btn-primary" href="{{url_for('get_events')}}" role="button">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/add_event_scripts.js') }}"></script>
+
+{% endblock scripts %}
