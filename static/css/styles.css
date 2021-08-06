@@ -33,6 +33,10 @@ h3 {
   font-size: 2.2rem;
 }
 
+strong {
+  color: #333634;
+}
+
 .navbar {
   background-color: #c0edc9;
   color: #000000;
@@ -88,7 +92,11 @@ h3 {
   margin-left: 10px;
 }
 
-.flash{
+.green {
+  color: #04852f;
+}
+.right {
+  float: right;
 }
 
 .card {
@@ -179,5 +187,15 @@ h3 {
 @media screen and (max-width: 992px) {
   .add-event-form, .edit-event-form {
     width: 85%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .card {
+    width: 98%;
+  }
+
+  .search-input {
+    width: 80%;
   }
 }

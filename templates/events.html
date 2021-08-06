@@ -22,14 +22,15 @@
   <img class="card-img-top" src="{{ url_for('file', filename=images[loop.index - 1]) }}" alt="Event image" onerror="this.src='/static/images/default-event.jpg'">
   <div class="card-body">
     <h3 class="card-title">{{ event.event_name }}</h3>
-    <p class="card-text">{{ event.category_name }}</p>
-    <p class="card-text">When: {{ event.event_date }}</p>
-    <p class="card-text">At: {{ event.event_time }}</p>
-    <p class="card-text">In: {{ event.event_county }}</p>
-    <p class="card-text">In: {{ event.event_location }}</p>
-    <p class="card-text">€ {{ event.event_cost }}</p>
+    <p class="card-text green">{{ event.category_name }}</p>
+    <hr>
+    <p class="card-text"><strong>When:</strong> {{ event.event_date }}</p>
+    <p class="card-text"><strong>At:</strong> {{ event.event_time }}</p>
+    <p class="card-text"><strong>In:</strong> {{ event.event_county }}</p>
+    <p class="card-text"><strong>Location:</strong> {{ event.event_location }}</p>
+    <p class="card-text"><strong>€</strong> {{ event.event_cost }}</p>
     <p class="card-text">{{ event.event_description }}</p>
-    <p class="card-text"><small class="text-muted">posted by: {{ event.created_by }}</small></p>
+    <p class="card-text"><small class="text-muted right">posted by: {{ event.created_by }}</small></p>
 
     {% if session.user == event.created_by or admin == true %}
     <a class="btn btn-primary" href="{{url_for('delete_event', event_id=event._id)}}" onclick="return confirm('Are you sure you want to delete?');" role="button">Delete</a>

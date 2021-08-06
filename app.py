@@ -111,8 +111,13 @@ def profile(username):
     car = mongo.db.users.find_one(
     {"user":session["user"]})["car_owned"]
 
+    user_events = list(mongo.db.events.find({"created_by":session['user']}))
+    images = []
+    for event in user_events:
+        images.append(event["event_image"])
+
     if session["user"]:
-        return render_template("profile.html", username=username, email=email, car=car)
+        return render_template("profile.html", username=username, email=email, car=car, user_events=user_events, images=images)
     return redirect(url_for("get_events"))
 
 
