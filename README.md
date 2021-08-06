@@ -12,6 +12,16 @@ This is the main marketing website for Code Institute. It is designed to be resp
 username: admin
 password: password
 
+### Database design below. 4 collections
+
+-   admin - [View](/readme-files/admin.png)
+
+-   Category - [View](/readme-files/category.png)
+
+-   Events - [View](/readme-files/events.png)
+
+-   User - [View](/readme-files/user.png)
+
 ## User Experience (UX)
 
 -   ### User stories
@@ -51,18 +61,6 @@ password: password
     -   Profile Wireframe - [View](/readme-files/profile.png)
 
     -   Add/Edit event Wireframe- [View](/readme-files/addtask.png)
-
-
-
-### Database design below. 4 collections
-
-    -   admin - [View](/readme-files/admin.png)
-
-    -   Category - [View](/readme-files/category.png)
-
-    -   Events - [View](/readme-files/events.png)
-
-    -   User - [View](/readme-files/user.png)
 
 
 
