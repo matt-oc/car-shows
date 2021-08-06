@@ -35,8 +35,12 @@ mongo = PyMongo(app)
 @app.route("/get_events")
 def get_events():
 
-    events = mongo.db.events.find()
-    return render_template("events.html", events=events)
+    events = list(mongo.db.events.find())
+    images = []
+    for event in events:
+        flash(event["event_name"])
+        images.append(event["event_image"])
+    return render_template("events.html", events=events, images=images)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -106,10 +110,10 @@ def logout():
 @app.route("/add_event", methods=["GET", "POST"])
 def add_event():
         if request.method == "POST":
-
+# https://www.youtube.com/watch?v=DsgAuceHha4
             if "eventImage" in request.files:
                 file = request.files['eventImage']
-                filename = request.form.get("eventName") + "image"
+                filename = request.form.get("eventName")
                 mongo.save_file(filename, file)
 
             event = {
@@ -127,9 +131,8 @@ def add_event():
 
             mongo.db.events.insert_one(event)
             flash("Event added successfully")
-            #return redirect(url_for("get_events"))
-            flash("Success")
-            #return imread(BytesIO(encoded))
+            return redirect(url_for("get_events"))
+
 
 
         categories = mongo.db.categories.find().sort("category_name", 1)
@@ -144,6 +147,11 @@ def not_found(e):
 @app.errorhandler(500)
 def server_error(e):
   return render_template('error.html'), 500
+
+@app.route("/file/<filename>")
+def file(filename):
+    return mongo.send_file(filename)
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

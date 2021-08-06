@@ -13,15 +13,18 @@
 </section>
 <!--/Search Bar-->
 
+<h1> Events List:  </h1>
 {% for event in events %}
-{{ event.event_name}}<br>
 <div class="row m-0 p-0">
   <div class="col-12 d-flex justify-content-center m-0 p-0">
 <div class="card mb-3 w-75">
-  <img class="card-img-top" src="/static/images/default-event.jpg" alt="Card image cap">
+  <img class="card-img-top" src="{{ url_for('file', filename=images[loop.index]) }}" alt="Event image" onerror="this.src='/static/images/default-event.jpg'">
   <div class="card-body">
-    <h5 class="card-title">{{ event.event_name}}</h5>
+    <h3 class="card-title">{{ event.event_name}}</h3>
     <p class="card-text">{{ event.category_name}}</p>
+    <p class="card-text">{{ event.event_date}}</p>
+    <p class="card-text">{{ event.event_cost}}</p>
+    <p class="card-text">{{ event.cost}}</p>
     {{event.event_image}}
     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
   </div>
