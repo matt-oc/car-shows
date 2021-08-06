@@ -25,8 +25,12 @@
     <p class="card-text">{{ event.event_date}}</p>
     <p class="card-text">{{ event.event_cost}}</p>
     <p class="card-text">{{ event.cost}}</p>
-    {{event.event_image}}
+    <p class="card-text">{{ event.event_description}}</p>
     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    <a href="{{url_for('edit_event', event_id=event._id)}}">Continue</a>
+
+    <button type="button" class="btn btn-primary btn-sm" href="">Going</button>
+<button type="button" class="btn btn-primary btn-sm">Delete</button>
   </div>
 </div>
 </div>

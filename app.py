@@ -38,7 +38,6 @@ def get_events():
     events = list(mongo.db.events.find())
     images = []
     for event in events:
-        flash(event["event_name"])
         images.append(event["event_image"])
     return render_template("events.html", events=events, images=images)
 
@@ -152,6 +151,12 @@ def server_error(e):
 def file(filename):
     return mongo.send_file(filename)
 
+@app.route("/edit_event/<event_id>", methods=["GET", "POST"])
+def edit_event(event_id):
+    event = mongo.db.events.find_one({"id": ObjectId()})
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    counties = mongo.db.counties.find().sort("county", 1)
+    return render_template("add_event.html", event=event, categories=categories, counties=counties)
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

@@ -5,7 +5,7 @@
 
 <div class="row">
   <div class="col-12 justify-content-center d-flex">
-    <form action="{{ url_for('add_event')}}" method="POST" id="addEvent" class="add-event-form" enctype="multipart/form-data">
+    <form action="{{ url_for('edit_event', event_id=event._id)}}" method="POST" id="addEvent" class="add-event-form" enctype="multipart/form-data">
       <fieldset>
         <div class="form-group">
           <label for="eventName">Event Name</label>
@@ -53,7 +53,7 @@
 <img id="output" width="200" />
   </div>
   </fieldset>
-  <button type="submit" form="addEvent" class="btn btn-primary" id="addEvent-submit">Submit</button>
+  <button type="submit" form="addEvent" class="btn btn-primary" id="addEvent-submit">Save</button>
 </form>
   </div>
   </div>
