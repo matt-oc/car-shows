@@ -34,13 +34,25 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/get_events")
 def get_events():
-
+    admin = False
     events = list(mongo.db.events.find())
+    if session.get('user') is not None:
+        admins = mongo.db.admins.find_one({"admin":session['user']})
+        if admins:
+            admin = True
+        else:
+            admin = False
     images = []
     for event in events:
         images.append(event["event_image"])
-    return render_template("events.html", events=events, images=images)
+    return render_template("events.html", events=events, images=images, admin=admin)
 
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    events = list(mongo.db.events.find({"$text": {"$search": query}}))
+    return render_template("events.html", events=events)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():

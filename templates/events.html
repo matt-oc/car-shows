@@ -13,7 +13,8 @@
 </section>
 <!--/Search Bar-->
 
-<h1> Events List:  </h1>
+{% if events|length > 0 %}
+<h2> Events List:  </h2>
 {% for event in events %}
 <div class="row m-0 p-0">
   <div class="col-12 d-flex justify-content-center m-0 p-0">
@@ -29,13 +30,20 @@
     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
 
     <a class="btn btn-primary" href="#" role="button">Going</a>
+    {% if session.user == event.created_by or admin == true %}
     <a class="btn btn-primary" href="{{url_for('delete_event', event_id=event._id)}}" onclick="return confirm('Are you sure you want to delete?');" role="button">Delete</a>
     <a class="btn btn-primary" href="{{url_for('edit_event', event_id=event._id)}}" role="button">Edit</a>
+    {% endif %}
   </div>
 </div>
 </div>
 </div>
 
+
 {% endfor %}
+
+{% else %}
+<h2> No results found </h2>
+{% endif %}
 
 {% endblock %}
