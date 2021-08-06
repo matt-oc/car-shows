@@ -95,6 +95,7 @@ strong {
 .green {
   color: #04852f;
 }
+
 .right {
   float: right;
 }
@@ -141,7 +142,6 @@ strong {
   margin-bottom: 5rem;
 }
 
-
 /* Footer */
 /*  sticky footer adapted from https://stackoverflow.com/questions/3443606/make-footer-stick-to-bottom-of-page-correctly */
 .footer {
@@ -183,7 +183,7 @@ strong {
   margin: 10px;
 }
 
-
+/* Media queries */
 @media screen and (max-width: 992px) {
   .add-event-form, .edit-event-form {
     width: 85%;
