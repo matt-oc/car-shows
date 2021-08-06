@@ -12,6 +12,7 @@ body {
   max-width: 100%;
   position: relative;
   min-height: 100vh;
+  margin-bottom: 40px;
 }
 
 h1, h2, h4 {
@@ -43,11 +44,11 @@ h3 {
   color: #000
 }
 
-.register-form {
+.register-form, .login-form {
   padding: 20px;
 }
 
-.register-form input {
+.register-form input, .login-form input {
   max-width: 500px;
   width: 100%;
   display: flex;
@@ -100,6 +101,15 @@ h3 {
   border-color: #DC565C;
 }
 
+.btn-nav {
+  margin-right: 5px;
+  background-color: rgba(178, 212, 187, .7);
+}
+
+.btn-nav:hover {
+  background-color: rgba(178, 212, 187, 1);
+}
+
 .btn-primary:hover {
   background-color: #c0edc9;
   border-color: #DC565C;
@@ -119,11 +129,15 @@ h3 {
   width: 100%;
 }
 
+.content {
+  margin-bottom: 5rem;
+}
+
 
 /* Footer */
 /*  sticky footer adapted from https://stackoverflow.com/questions/3443606/make-footer-stick-to-bottom-of-page-correctly */
 .footer {
-  margin-top: 20px;
+  margin-top: 70px;
   margin-bottom: 0px;
   font-size: 1.1rem;
   background-color: #c0edc9;
@@ -147,4 +161,23 @@ h3 {
 
 .footer-credits:hover {
   opacity: 1;
+}
+
+.button-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.button-container .btn-primary {
+  margin: 10px;
+}
+
+
+@media screen and (max-width: 992px) {
+  .add-event-form, .edit-event-form {
+    width: 85%;
+  }
 }

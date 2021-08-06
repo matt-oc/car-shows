@@ -4,8 +4,8 @@
 <h2> Edit Event </h2>
 
 <div class="row">
-  <div class="col-12 justify-content-center d-flex">
-    <form action="{{ url_for('edit_event', event_id=event._id)}}" method="POST" id="addEvent" class="add-event-form" enctype="multipart/form-data">
+  <div class="col-12 justify-content-center d-flex content">
+    <form action="{{ url_for('edit_event', event_id=event._id)}}" method="POST" id="editEvent" class="edit-event-form" enctype="multipart/form-data">
       <fieldset>
         <div class="form-group">
           <label for="eventName">Event Name</label>
@@ -61,8 +61,10 @@
 <img id="output" width="200" />
   </div>
   </fieldset>
+  <div class="button-container">
   <button type="submit" form="addEvent" class="btn btn-primary" id="addEvent-submit">Save</button>
   <a class="btn btn-primary" href="{{url_for('get_events')}}" role="button">Cancel</a>
+  </div>
 </form>
   </div>
   </div>

@@ -16,18 +16,20 @@
 {% if events|length > 0 %}
 <h2> Events List:  </h2>
 {% for event in events %}
-<div class="row m-0 p-0">
-  <div class="col-12 d-flex justify-content-center m-0 p-0">
+<div class="row p-0">
+  <div class="col-12 d-flex justify-content-center p-0 content">
 <div class="card mb-3 w-md-60">
   <img class="card-img-top" src="{{ url_for('file', filename=images[loop.index - 1]) }}" alt="Event image" onerror="this.src='/static/images/default-event.jpg'">
   <div class="card-body">
-    <h3 class="card-title">{{ event.event_name}}</h3>
-    <p class="card-text">{{ event.category_name}}</p>
-    <p class="card-text">{{ event.event_date}}</p>
-    <p class="card-text">{{ event.event_cost}}</p>
-    <p class="card-text">{{ event.cost}}</p>
-    <p class="card-text">{{ event.event_description}}</p>
-    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    <h3 class="card-title">{{ event.event_name }}</h3>
+    <p class="card-text">{{ event.category_name }}</p>
+    <p class="card-text">When: {{ event.event_date }}</p>
+    <p class="card-text">At: {{ event.event_time }}</p>
+    <p class="card-text">In: {{ event.event_county }}</p>
+    <p class="card-text">In: {{ event.event_location }}</p>
+    <p class="card-text">€ {{ event.event_cost }}</p>
+    <p class="card-text">{{ event.event_description }}</p>
+    <p class="card-text"><small class="text-muted">posted by: {{ event.created_by }}</small></p>
 
     {% if session.user == event.created_by or admin == true %}
     <a class="btn btn-primary" href="{{url_for('delete_event', event_id=event._id)}}" onclick="return confirm('Are you sure you want to delete?');" role="button">Delete</a>
