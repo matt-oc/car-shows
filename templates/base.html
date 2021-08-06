@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
@@ -12,23 +13,19 @@
   <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
 </head>
 
-
 <body>
+
   <!--Navigation Bar-->
   <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="{{ url_for('get_events') }}">Irish Car Shows</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('get_events') }}">Home</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('get_events') }}">Events</a>
         </li>
@@ -45,20 +42,18 @@
         {% else %}
         <li class="nav-item">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
-  Register
-</button>
+            Register
+          </button>
         </li>
         <li class="nav-item">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
-  Login
-</button>
+            Login
+          </button>
         </li>
         {% endif %}
     </div>
   </nav>
   <!--/Navigation Bar-->
-
-
 
   <!-- flash messages -->
   <section>
@@ -70,38 +65,41 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         {{ message }}
       </div>
-
-
     </div>
 
     {% endfor %} {% endif %} {% endwith %}
   </section>
+
   <!--Content-->
   <section>
-  <div class="container-fluid">
-  {% block content %} {% endblock %}
-</div>
-</section>
+    <div class="container-fluid">
+      {% block content %} {% endblock %}
+    </div>
+  </section>
   <!--/Content-->
 
 
   <!--Login-->
-
   {% include 'login.html' %}
-
   <!--Register-->
 
   {% include 'register.html' %}
 
   <!--Footer-->
-  <footer id="footer">
-
+  <footer class="footer py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+          <span class="footer-credits">Site by: <a href="https://github.com/matt-oc" target="_blank"><i class="fab fa-github"></i></a></span>
+          <span class="footer-credits">Follow us on Facebook: <a href="https://www.facebook.com/aerialphotographyireland" target="_blank"><i class="fab fa-facebook-square"></i></a></span>
+        </div>
+      </div>
+    </div>
   </footer>
   <!--/Footer-->
 
-<!--Scripts-->
-
-<script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"></script>
+  <!--Scripts-->
+  <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
   </script>

@@ -11,7 +11,7 @@ body {
   position: relative;
 }
 
-h1, h2 {
+h1, h2, h4 {
   text-align: center;
 }
 
@@ -84,4 +84,53 @@ h3 {
 
 .card {
   box-shadow: 0 5px 21px 0 rgb(0 0 0 / 10%);
+}
+
+.btn-primary {
+  background-color: #DC565C;
+  border-color: #DC565C;
+}
+
+.btn-primary:hover {
+  background-color: #c0edc9;
+  border-color: #DC565C;
+}
+
+.form-inline {
+  width: 100%;
+  justify-content: center;
+}
+
+.form-group {
+  width: 50%;
+}
+
+#query {
+  padding: 25px;
+  width: 100%;
+}
+
+
+/* Footer */
+.footer {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 1.1rem;
+  background-color: #c0edc9;
+  font-family: 'Nunito', sans-serif;
+}
+
+.footer i {
+  color: #000;
+  font-size: 1.4rem;
+  margin-left: 5px;
+}
+
+.footer-credits {
+  margin: 0 20px 0 20px;
+  opacity: .7
+}
+
+.footer-credits:hover {
+  opacity: 1;
 }

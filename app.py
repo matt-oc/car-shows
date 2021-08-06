@@ -106,9 +106,13 @@ def login():
 def profile(username):
     username = mongo.db.users.find_one(
     {"user":session["user"]})["user"]
+    email = mongo.db.users.find_one(
+    {"user":session["user"]})["email"]
+    car = mongo.db.users.find_one(
+    {"user":session["user"]})["car_owned"]
 
     if session["user"]:
-        return render_template("profile.html", username=username)
+        return render_template("profile.html", username=username, email=email, car=car)
     return redirect(url_for("get_events"))
 
 
