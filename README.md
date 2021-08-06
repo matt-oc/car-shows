@@ -42,15 +42,15 @@ password: password
 
 *   ### Wireframes
 
-    -   Home Page Wireframe - [View](/assets/readme-files/home_desktop.png)
+    -   Home Page Wireframe - [View](/readme-files/home_desktop.png)
 
-    -   Mobile Wireframe - [View](/assets/readme-files/home_mobile.png)
+    -   Mobile Wireframe - [View](/readme-files/home_mobile.png)
 
-    -   Tablet Wireframe - [View](/assets/readme-files/home_tablet.png)
+    -   Tablet Wireframe - [View](/readme-files/home_tablet.png)
 
-    -   Profile Wireframe - [View](/assets/readme-files/profile.png)
+    -   Profile Wireframe - [View](/readme-files/profile.png)
 
-    -   Add/Edit event Wireframe- [View](/assets/readme-files/addtask.png)
+    -   Add/Edit event Wireframe- [View](/readme-files/addtask.png)
 
 ## Features
 
