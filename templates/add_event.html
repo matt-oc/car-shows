@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2> Edit Event </h2>
+<h2> Add New Event </h2>
 <div class="row">
   <div class="col-12 justify-content-center d-flex">
     <form action="{{ url_for('add_event')}}" method="POST" id="addEvent" class="add-event-form" enctype="multipart/form-data">
@@ -53,6 +53,8 @@
   </div>
   </fieldset>
   <button type="submit" form="addEvent" class="btn btn-primary" id="addEvent-submit">Submit</button>
+  <a class="btn btn-primary" href="{{url_for('get_events')}}" role="button">Cancel</a>
+
 </form>
   </div>
   </div>

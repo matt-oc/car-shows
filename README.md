@@ -11,3 +11,4 @@ image to mongo adapted from https://stackoverflow.com/questions/40015103/upload-
 https://stackoverflow.com/questions/27136782/is-there-a-simple-way-to-process-an-html-form-upload-with-python
 hide flash https://stackoverflow.com/questions/31176402/how-to-hide-flash-message-after-few-seconds
 help with image saving https://www.youtube.com/watch?v=DsgAuceHha4
+sticky footer https://stackoverflow.com/questions/3443606/make-footer-stick-to-bottom-of-page-correctly
