@@ -9,7 +9,6 @@ from bson.binary import Binary
 from werkzeug.utils import secure_filename
 import base64
 from io import BytesIO
-from imageio import imread
 
 if os.path.exists("env.py"):
     import env
