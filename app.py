@@ -151,9 +151,17 @@ def server_error(e):
 def file(filename):
     return mongo.send_file(filename)
 
+@app.route("/delete_event/<event_id>")
+def delete_event(event_id):
+    mongo.db.events.remove({"_id": ObjectId(event_id)})
+    flash("Event deleted successfully")
+    return redirect(url_for("get_events"))
+
+
+
 @app.route("/edit_event/<event_id>", methods=["GET", "POST"])
 def edit_event(event_id):
-    event = mongo.db.events.find_one({"id": ObjectId()})
+    event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
     counties = mongo.db.counties.find().sort("county", 1)
     return render_template("add_event.html", event=event, categories=categories, counties=counties)

@@ -18,7 +18,7 @@
 <div class="row m-0 p-0">
   <div class="col-12 d-flex justify-content-center m-0 p-0">
 <div class="card mb-3 w-75">
-  <img class="card-img-top" src="{{ url_for('file', filename=images[loop.index]) }}" alt="Event image" onerror="this.src='/static/images/default-event.jpg'">
+  <img class="card-img-top" src="{{ url_for('file', filename=images[loop.index - 1]) }}" alt="Event image" onerror="this.src='/static/images/default-event.jpg'">
   <div class="card-body">
     <h3 class="card-title">{{ event.event_name}}</h3>
     <p class="card-text">{{ event.category_name}}</p>
@@ -27,10 +27,10 @@
     <p class="card-text">{{ event.cost}}</p>
     <p class="card-text">{{ event.event_description}}</p>
     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    <a href="{{url_for('edit_event', event_id=event._id)}}">Continue</a>
 
-    <button type="button" class="btn btn-primary btn-sm" href="">Going</button>
-<button type="button" class="btn btn-primary btn-sm">Delete</button>
+    <a class="btn btn-primary" href="#" role="button">Going</a>
+    <a class="btn btn-primary" href="{{url_for('delete_event', event_id=event._id)}}" onclick="return confirm('Are you sure you want to delete?');" role="button">Delete</a>
+    <a class="btn btn-primary" href="{{url_for('edit_event', event_id=event._id)}}" role="button">Edit</a>
   </div>
 </div>
 </div>
