@@ -10,3 +10,9 @@
        eventImage.value="";
     };
 };
+
+
+// adapted from https://codepen.io/astrit/pen/OJPyqyx
+window.setTimeout(function() {
+    $(".alert").slideUp(400)
+}, 4000);

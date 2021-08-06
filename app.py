@@ -4,9 +4,17 @@ from flask import (
      session, request, url_for, make_response)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-import random
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime, timedelta
+from bson.binary import Binary
+from werkzeug.utils import secure_filename
+import base64
+from io import BytesIO
+from PIL import Image
+from imageio import imread
+
+
+
+
 
 if os.path.exists("env.py"):
     import env
@@ -16,6 +24,9 @@ app = Flask(__name__)
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
+
+app.config['UPLOAD_FOLDER'] = '/tmp'
+
 
 mongo = PyMongo(app)
 
@@ -95,13 +106,19 @@ def logout():
 @app.route("/add_event", methods=["GET", "POST"])
 def add_event():
         if request.method == "POST":
+
+            if "eventImage" in request.files:
+                file = request.files['eventImage']
+                filename = request.form.get("eventName") + "image"
+                mongo.save_file(filename, file)
+
             event = {
             "event_name": request.form.get("eventName"),
             "event_location": request.form.get("eventLocation"),
             "event_cost": request.form.get("eventCost"),
             "event_time": request.form.get("eventTime"),
             "event_date": request.form.get("eventDate"),
-            "event_image": request.form.get("eventImage"),
+            "event_image": filename,
             "category_name": request.form.get("categoryInput"),
             "event_county": request.form.get("countyInput"),
             "event_description": request.form.get("eventDescription"),
@@ -110,7 +127,9 @@ def add_event():
 
             mongo.db.events.insert_one(event)
             flash("Event added successfully")
-            return redirect(url_for("get_events"))
+            #return redirect(url_for("get_events"))
+            flash("Success")
+            #return imread(BytesIO(encoded))
 
 
         categories = mongo.db.categories.find().sort("category_name", 1)
