@@ -125,6 +125,7 @@ def add_event():
             if "eventImage" in request.files:
                 file = request.files['eventImage']
                 filename = request.form.get("eventName")
+                print(filename)
                 mongo.save_file(filename, file)
 
             event = {
@@ -173,10 +174,35 @@ def delete_event(event_id):
 
 @app.route("/edit_event/<event_id>", methods=["GET", "POST"])
 def edit_event(event_id):
+    if request.method == "POST":
+        if "eventImage" in request.files:
+            file = request.files['eventImage']
+            filename = request.form.get("eventName")
+            event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
+            if file:
+                mongo.save_file(filename, file)
+
+        event = {
+        "event_name": request.form.get("eventName"),
+        "event_location": request.form.get("eventLocation"),
+        "event_cost": request.form.get("eventCost"),
+        "event_time": request.form.get("eventTime"),
+        "event_date": request.form.get("eventDate"),
+        "event_image": filename,
+        "category_name": request.form.get("categoryInput"),
+        "event_county": request.form.get("countyInput"),
+        "event_description": request.form.get("eventDescription"),
+        "created_by": session["user"]
+        }
+
+
+        mongo.db.events.update({"_id": ObjectId(event_id)}, event)
+        flash("Event updated successfully")
+
     event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
     counties = mongo.db.counties.find().sort("county", 1)
-    return render_template("add_event.html", event=event, categories=categories, counties=counties)
+    return render_template("edit_event.html", event=event, categories=categories, counties=counties)
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
