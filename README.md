@@ -54,15 +54,15 @@ password: password
 
 
 
-    ### Database design below. 4 collections
+### Database design below. 4 collections
 
-        -   admin - [View](/readme-files/admin.png)
+    -   admin - [View](/readme-files/admin.png)
 
-        -   Category - [View](/readme-files/category.png)
+    -   Category - [View](/readme-files/category.png)
 
-        -   Events - [View](/readme-files/events.png)
+    -   Events - [View](/readme-files/events.png)
 
-        -   User - [View](/readme-files/user.png)
+    -   User - [View](/readme-files/user.png)
 
 
 
