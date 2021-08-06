@@ -31,12 +31,15 @@ app.config['UPLOAD_FOLDER'] = '/tmp'
 mongo = PyMongo(app)
 
 
+
+# Routes for default and for get_events
 @app.route("/")
 @app.route("/get_events")
 def get_events():
     admin = False
     events = list(mongo.db.events.find())
     if session.get('user') is not None:
+        # check if user is admin, if so admin True
         admins = mongo.db.admins.find_one({"admin":session['user']})
         if admins:
             admin = True
@@ -54,6 +57,8 @@ def search():
     events = list(mongo.db.events.find({"$text": {"$search": query}}))
     return render_template("events.html", events=events)
 
+
+# Route for registration
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -80,6 +85,7 @@ def register():
 
     return render_template("events.html")
 
+# Route for login
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -101,7 +107,7 @@ def login():
     return render_template("events.html")
 
 
-
+# Route for profile
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
     username = mongo.db.users.find_one(
@@ -111,6 +117,7 @@ def profile(username):
     car = mongo.db.users.find_one(
     {"user":session["user"]})["car_owned"]
 
+    # Ensure the users events and correct images are passed to the frontend
     user_events = list(mongo.db.events.find({"created_by":session['user']}))
     images = []
     for event in user_events:
@@ -127,13 +134,15 @@ def logout():
     session.pop("user")
     return redirect(url_for("get_events"))
 
+
 @app.route("/add_event", methods=["GET", "POST"])
 def add_event():
         if request.method == "POST":
-# https://www.youtube.com/watch?v=DsgAuceHha4
+            # https://www.youtube.com/watch?v=DsgAuceHha4
+            # Store the image in the database if uploaded
             if "eventImage" in request.files:
                 file = request.files['eventImage']
-                filename = request.form.get("eventName")
+                filename = request.form.get("eventName") #storing the filename in the database to retreive the image
                 print(filename)
                 mongo.save_file(filename, file)
 
@@ -161,17 +170,21 @@ def add_event():
         return render_template("add_event.html", categories=categories, counties=counties)
 
 
+# Gracefully handle errors/ missing pages
 @app.errorhandler(404)
 def not_found(e):
   return render_template('error.html'), 404
+
 
 @app.errorhandler(500)
 def server_error(e):
   return render_template('error.html'), 500
 
+
 @app.route("/file/<filename>")
 def file(filename):
     return mongo.send_file(filename)
+
 
 @app.route("/delete_event/<event_id>")
 def delete_event(event_id):
@@ -180,7 +193,7 @@ def delete_event(event_id):
     return redirect(url_for("get_events"))
 
 
-
+# Route to edit event
 @app.route("/edit_event/<event_id>", methods=["GET", "POST"])
 def edit_event(event_id):
     if request.method == "POST":
@@ -212,6 +225,7 @@ def edit_event(event_id):
     categories = mongo.db.categories.find().sort("category_name", 1)
     counties = mongo.db.counties.find().sort("county", 1)
     return render_template("edit_event.html", event=event, categories=categories, counties=counties)
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

@@ -8,62 +8,64 @@
       <fieldset>
         <div class="form-group">
           <label for="eventName">Event Name</label>
-    <input type="text" class="form-control" id="eventName" name="eventName" minlength="3" required>
+          <input type="text" class="form-control" id="eventName" name="eventName" minlength="3" required>
+        </div>
+        <div class="form-group">
+          <label for="categoryInput">Category</label>
+          <select class="form-control" id="categoryInput" name="categoryInput" required>
+            <option value="">Choose</option>
+            {% for category in categories %}
+            <option>{{ category.category_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="countyInput">County</label>
+          <select class="form-control" id="countyInput" name="countyInput" required>
+            <option value="">Choose</option>
+            {% for county in counties %}
+            <option value="">{{ county.county }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="eventLocation">Event Location</label>
+          <input type="text" class="form-control" id="eventLocation" name="eventLocation" minlength="3" required>
+        </div>
+        <div class="form-group">
+          <label for="eventTime">Event time</label>
+          <input type="text" class="form-control" id="eventTime" name="eventTime" required>
+        </div>
+        <div class="form-group">
+          <label for="eventDate">Event Date</label>
+          <input id="eventDate" name="eventDate" class="form-control" readonly="" placeholder="Click to Select Date" required>
+        </div>
+        <div class="form-group">
+          <label for="eventCost">Cost</label>
+          <input type="text" class="form-control" id="eventCost" name="eventCost" required>
+        </div>
+        <div class="form-group">
+          <label for="eventDescription">Event Description</label>
+          <textarea class="form-control" id="eventDescription" name="eventDescription" rows="3" required></textarea>
+        </div>
+        <div class="form-group form-image">
+          <label for="eventImage" style="cursor: pointer;"><i class="fas fa-upload"></i> Upload Event Image (Optional)</label>
+          <input type="file" accept="image/*" name="eventImage" id="eventImage" onchange="loadFile(event)" />
+          <img id="output" width="200" src="#" alt="Event_image"/>
+        </div>
+      </fieldset>
+      <div class="button-container">
+        <button type="submit" form="addEvent" class="btn btn-primary" id="addEvent-submit">Submit</button>
+        <a class="btn btn-primary" href="{{url_for('get_events')}}" role="button">Cancel</a>
+      </div>
+    </form>
   </div>
-  <div class="form-group">
-    <label for="categoryInput">Category</label>
-    <select class="form-control" id="categoryInput" name="categoryInput" required>
-      {% for category in categories %}
-      <option>{{ category.category_name }}</option>
-      {% endfor %}
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="countyInput">County</label>
-    <select class="form-control" id="countyInput" name="countyInput" required>
-      {% for county in counties %}
-      <option>{{ county.county }}</option>
-      {% endfor %}
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="eventLocation">Event Location</label>
-<input type="text" class="form-control" id="eventLocation" name="eventLocation" minlength="3" required>
 </div>
-<div class="form-group">
-  <label for="eventTime">Event time</label>
-<input type="text" class="form-control" id="eventTime" name="eventTime" required>
-</div>
-<div class="form-group">
-  <label for="eventDate">Event Date</label>
-  <input id="eventDate" name="eventDate" class="form-control"  readonly="" placeholder="Click to Select Date" required>
-</div>
-<div class="form-group">
-  <label for="eventCost">Cost</label>
-<input type="text" class="form-control" id="eventcost" name="eventCost" required>
-</div>
-  <div class="form-group">
-    <label for="eventDescription">Event Description</label>
-    <textarea class="form-control" id="eventDescription" name="eventDescription" rows="3" required></textarea>
-  </div>
-  <div class="form-group form-image">
-    <label for="eventImage" style="cursor: pointer;"><i class="fas fa-upload"></i> Upload Event Image (Optional)</label>
-<input type="file" accept="image/*" name="eventImage" id="eventImage" onchange="loadFile(event)"/>
-<img id="output" width="200" />
-  </div>
-  </fieldset>
-  <div class="button-container">
-  <button type="submit" form="addEvent" class="btn btn-primary" id="addEvent-submit">Submit</button>
-  <a class="btn btn-primary" href="{{url_for('get_events')}}" role="button">Cancel</a>
-  </div>
-
-</form>
-  </div>
-  </div>
 
 {% endblock %}
 
 {% block scripts %}
+
 <script src="{{ url_for('static', filename='js/add_event_scripts.js') }}"></script>
 
 {% endblock scripts %}
