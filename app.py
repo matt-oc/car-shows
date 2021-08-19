@@ -46,9 +46,20 @@ def get_events():
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
+    admin = False
     query = request.form.get("query")
     events = list(mongo.db.events.find({"$text": {"$search": query}}))
-    return render_template("events.html", events=events)
+    if session.get('user') is not None:
+        # check if user is admin, if so admin True
+        admins = mongo.db.admins.find_one({"admin": session['user']})
+        if admins:
+            admin = True
+        else:
+            admin = False
+    images = []
+    for event in events:
+        images.append(event["event_image"])
+    return render_template("events.html", events=events, images=images, admin=admin)
 
 
 # Route for registration
