@@ -40,14 +40,26 @@ def get_events():
     images = []
     for event in events:
         images.append(event["event_image"])
-    return render_template("events.html", events=events, images=images, admin=admin)
+    return render_template(
+        "events.html", events=events, images=images, admin=admin)
 
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
+    admin = False
     query = request.form.get("query")
     events = list(mongo.db.events.find({"$text": {"$search": query}}))
-    return render_template("events.html", events=events)
+    if session.get('user') is not None:
+        # check if user is admin, if so admin True
+        admins = mongo.db.admins.find_one({"admin": session['user']})
+        if admins:
+            admin = True
+        else:
+            admin = False
+    images = []
+    for event in events:
+        images.append(event["event_image"])
+    return render_template("events.html", events=events, images=images, admin=admin)
 
 
 # Route for registration
@@ -86,7 +98,8 @@ def login():
             {"user": request.form.get("name").lower()})
 
         if existing_user:
-            if check_password_hash(existing_user["password"], request.form.get("password")):
+            if check_password_hash(
+              existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("name").lower()
                 flash("Welcome back to Irish Car Shows")
                 return redirect(url_for("profile", username=session["user"]))
@@ -117,8 +130,10 @@ def profile(username):
         images.append(event["event_image"])
 
     if session["user"]:
-        return render_template("profile.html", username=username, email=email, car=car, user_events=user_events,
-                               images=images)
+        return render_template(
+            "profile.html", username=username,
+            email=email, car=car, user_events=user_events,
+            images=images)
     return redirect(url_for("get_events"))
 
 
@@ -136,7 +151,8 @@ def add_event():
         # Store the image in the database if uploaded
         if "eventImage" in request.files:
             file = request.files['eventImage']
-            filename = request.form.get("eventName")  # storing the filename in the database to retreive the image
+            filename = request.form.get("eventName")
+            # storing the filename in the database to retreive the image
             print(filename)
             mongo.save_file(filename, file)
 
@@ -159,7 +175,8 @@ def add_event():
 
     categories = mongo.db.categories.find().sort("category_name", 1)
     counties = mongo.db.counties.find().sort("county", 1)
-    return render_template("add_event.html", categories=categories, counties=counties)
+    return render_template(
+        "add_event.html", categories=categories, counties=counties)
 
 
 # Gracefully handle errors/ missing pages
@@ -215,7 +232,9 @@ def edit_event(event_id):
     event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
     counties = mongo.db.counties.find().sort("county", 1)
-    return render_template("edit_event.html", event=event, categories=categories, counties=counties)
+    return render_template(
+        "edit_event.html",
+        event=event, categories=categories, counties=counties)
 
 
 if __name__ == "__main__":
