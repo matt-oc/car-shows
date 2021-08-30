@@ -52,8 +52,14 @@
           <label for="eventImage" style="cursor: pointer;"><i class="fas fa-upload"></i> Upload Event Image (Optional)</label>
           <input type="file" accept="image/*" name="eventImage" id="eventImage" onchange="loadFile(event)" />
           <img id="output" width="100" src="{{ url_for('static', filename='images/upload.svg') }}" alt="Event_image"/>
+          <div class="form-group mt-4">
+            <h4>Select Location</h4>
+          <div class="col-12 d-flex justify-content-center p-0 mb-0 mt-4 content">
+            <div class="map" id='gmap_canvas'></div>
+            </div>
         </div>
       </fieldset>
+
       <div class="button-container">
         <button type="submit" form="addEvent" class="btn btn-primary" id="addEvent-submit">Submit</button>
         <a class="btn btn-primary" href="{{url_for('get_events')}}" role="button">Cancel</a>
@@ -67,5 +73,7 @@
 {% block scripts %}
 
 <script src="{{ url_for('static', filename='js/add_event_scripts.js') }}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACAJVZiLB1uIT6UsF5Xh8uiJZoLfU48iQ&amp;callback=initMap" async="" defer=""></script>
+<script src="{{ url_for('static', filename='js/maps.js') }}"></script>
 
 {% endblock scripts %}

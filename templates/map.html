@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2> Map of all Events </h2>
+
+<div class="row">
+  <div class="col-12 justify-content-center d-flex content">
+    <div class="col-12 d-flex justify-content-center p-0 mb-0 content">
+      <div class="map" id='gmap_canvas'></div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/add_event_scripts.js') }}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACAJVZiLB1uIT6UsF5Xh8uiJZoLfU48iQ&amp;callback=initMap" async="" defer=""></script>
+<script src="{{ url_for('static', filename='js/maps.js') }}"></script>
+{% endblock scripts %}

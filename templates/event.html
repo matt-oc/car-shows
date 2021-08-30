@@ -67,3 +67,12 @@
 {% endif %}
 
 {% endblock %}
+
+{% block scripts %}
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACAJVZiLB1uIT6UsF5Xh8uiJZoLfU48iQ&amp;callback=initMap" async="" defer=""></script>
+<script src="{{ url_for('static', filename='js/maps.js') }}"></script>
+
+
+{% endblock scripts %}
