@@ -1,4 +1,6 @@
 import os
+import json
+from bson import json_util
 from flask import (
     Flask, flash, render_template, redirect,
     session, request, url_for, make_response)
@@ -8,6 +10,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bson.binary import Binary
 from werkzeug.utils import secure_filename
 import base64
+from flask import jsonify
 from io import BytesIO
 
 if os.path.exists("env.py"):
@@ -206,7 +209,6 @@ def delete_event(event_id):
 def view_event(event_id):
     admin = False
     event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
-    print(event)
     if session.get('user') is not None:
         # check if user is admin, if so admin True
         admins = mongo.db.admins.find_one({"admin": session['user']})
@@ -257,7 +259,7 @@ def edit_event(event_id):
 @app.route("/get_events_api")
 def get_events_api():
     events = list(mongo.db.events.find())
-    return events
+    return jsonify(json.loads(json_util.dumps(events)))
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
