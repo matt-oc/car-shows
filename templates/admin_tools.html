@@ -20,6 +20,11 @@
         <button type="submit" form="removeAdmin" class="btn btn-primary" id="removeAdmin-submit">Remove admin</button>
       </div>
     </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 justify-content-center d-flex content">
     <form action="{{ url_for('unban_user')}}" method="POST" id="removeBanned" class="admin-form" enctype="multipart/form-data">
       <fieldset>
         <div class="form-group">
@@ -35,6 +40,12 @@
         <button type="submit" form="removeBanned" class="btn btn-primary" id="removeBanned-submit">Unban user</button>
       </div>
     </form>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 justify-content-center d-flex content">
     <form action="{{ url_for('add_admin')}}" method="POST" id="addAdmin" class="admin-form" enctype="multipart/form-data">
       <fieldset>
         <div class="form-group">
@@ -50,6 +61,11 @@
         <button type="submit" form="addAdmin" class="btn btn-primary" id="addAdmin-submit">Make admin</button>
       </div>
     </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 justify-content-center d-flex content">
     <form action="{{ url_for('ban_user')}}" method="POST" id="addBanned" class="admin-form" enctype="multipart/form-data">
       <fieldset>
         <div class="form-group">
