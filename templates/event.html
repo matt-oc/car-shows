@@ -38,9 +38,9 @@
         {% for attendee in event.attendees %}
         {% if session.user == attendee %}
         <a class="btn btn-primary" href="{{url_for('dismiss_event', event_id=event._id)}}" role="button">Not Going</a>
-        {% else %}
-          {% endif %}
+        {% elif session.user != attendee and loop.last %}
         <a class="btn btn-primary" href="{{url_for('attend_event', event_id=event._id)}}" role="button">Going</a>
+        {% endif %}
         {% endfor%}
       </div>
     </div>

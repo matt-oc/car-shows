@@ -218,20 +218,14 @@ def attend_event(event_id):
     event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
     mongo.db.events.update_one({"_id": ObjectId(event_id)}, {'$push': {'attendees': session["user"]}})
     flash("You are attending this event")
-    admin = verify_user()
-    images = []
-    images.append(event["event_image"])
-    return render_template("event.html", event=event, images=images, admin=admin)
+    return redirect(url_for("get_events"))
 
 @app.route("/dismiss_event/<event_id>")
 def dismiss_event(event_id):
     event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
     mongo.db.events.update_one({"_id": ObjectId(event_id)}, {'$pull': {'attendees': {'$in': [session["user"]]}}})
     flash("You are not attending this event")
-    admin = verify_user()
-    images = []
-    images.append(event["event_image"])
-    return render_template("event.html", event=event, images=images, admin=admin)
+    return redirect(url_for("get_events"))
 
 
 # Route to edit event
