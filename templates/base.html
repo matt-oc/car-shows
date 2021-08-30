@@ -19,7 +19,7 @@
 
   <!--Navigation Bar-->
   <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="{{ url_for('get_events') }}"><img src="{{ url_for('static', filename='images/logo.svg') }}" height=40 class="logo"></a>
+    <a class="navbar-brand" href="{{ url_for('get_events') }}"><img src="{{ url_for('static', filename='images/logo.svg') }}" class="logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -36,7 +36,7 @@
           <a class="nav-link" href="{{ url_for('add_event') }}">New Event</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+          <a class="nav-link" href="{{ url_for('logout') }}">Logout<i class="fas ml-2 fa-sign-out-alt"></i></a>
         </li>
         {% else %}
         <li class="nav-item">

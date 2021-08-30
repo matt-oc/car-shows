@@ -279,7 +279,7 @@ a:hover {
 }
 
 @media screen and (max-width: 400px) {
-  .logo {
-    height: 30px;
+  .navbar-brand img {
+    height: 40px;
   }
 }
