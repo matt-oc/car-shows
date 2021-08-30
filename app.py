@@ -220,6 +220,18 @@ def view_event(event_id):
     images.append(event["event_image"])
     return render_template("event.html", event=event, images=images, admin=admin)
 
+@app.route("/attend_event/<event_id>")
+def attend_event(event_id):
+    mongo.db.events.update_one({"_id": ObjectId(event_id)}, {'$push': {'attendees': session["user"]}})
+    flash("You are attending this event")
+    return redirect(request.url)
+
+@app.route("/dismiss_event/<event_id>")
+def dismiss_event(event_id):
+    mongo.db.events.update_one({"_id": ObjectId(event_id)}, {'$pull': {'attendees': {'$in': [session["user"]]}}})
+    flash("You are not attending this event")
+    return redirect(request.url)
+
 
 # Route to edit event
 @app.route("/edit_event/<event_id>", methods=["GET", "POST"])

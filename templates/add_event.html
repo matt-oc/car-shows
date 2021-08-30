@@ -51,7 +51,7 @@
         <div class="form-group form-image">
           <label for="eventImage" style="cursor: pointer;"><i class="fas fa-upload"></i> Upload Event Image (Optional)</label>
           <input type="file" accept="image/*" name="eventImage" id="eventImage" onchange="loadFile(event)" />
-          <img id="output" width="200" src="#" alt="Event_image"/>
+          <img id="output" width="100" src="{{ url_for('static', filename='images/upload.svg') }}" alt="Event_image"/>
         </div>
       </fieldset>
       <div class="button-container">

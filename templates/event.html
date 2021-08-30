@@ -4,7 +4,7 @@
 <section>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12 justify-content-center d-flex mt-5 mb-5">
+      <div class="col-12 justify-content-start d-flex mt-5 mb-5">
         <a href="{{url_for('get_events')}}"><i class="fas fa-angle-double-left mr-1"></i>Go Back</a>
       </div>
     </div>
@@ -29,12 +29,18 @@
         <p class="card-text">{{ event.event_description }}</p>
         <p class="card-text"><small class="text-muted right">posted by: {{ event.created_by }}</small></p>
         <a href="#" class="fb" onclick="fbShare()" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-<a href="#" class="tw twitter-share" onclick="twShare()" title="Share on Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+        <a href="#" class="tw twitter-share" onclick="twShare()" title="Share on Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
         {% if session.user == event.created_by or admin == true %}
         <a class="btn btn-primary" href="{{url_for('delete_event', event_id=event._id)}}" onclick="return confirm('Are you sure you want to delete?');" role="button">Delete</a>
         <a class="btn btn-primary" href="{{url_for('edit_event', event_id=event._id)}}" role="button">Edit</a>
-
         {% endif %}
+        {% for attendee in event.attendees %}
+        {% if session.user == attendee %}
+        <a class="btn btn-primary" href="{{url_for('dismiss_event', event_id=event._id)}}" role="button">Not Going</a>
+        {% endif %}
+        {% else %}
+        <a class="btn btn-primary" href="{{url_for('attend_event', event_id=event._id)}}" role="button">Going</a>
+        {% endfor%}
       </div>
     </div>
   </div>
