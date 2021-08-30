@@ -201,8 +201,6 @@ def admin_tools():
 @app.route("/ban_user", methods=["GET", "POST"])
 def ban_user():
     if request.method == "POST":
-        admins = mongo.db.admins.find().sort("admin", 1)
-        banned = mongo.db.banned.find().sort("county", 1)
         selection = request.form.get("userInput")
         existing_banned = mongo.db.banned.find_one(
             {"user": selection})
@@ -218,8 +216,6 @@ def ban_user():
 @app.route("/unban_user", methods=["GET", "POST"])
 def unban_user():
     if request.method == "POST":
-        admins = mongo.db.admins.find().sort("admin", 1)
-        banned = mongo.db.banned.find().sort("county", 1)
         selection = request.form.get("bannedUserInput")
         mongo.db.banned.remove({"user": selection})
         flash("User sucessfully unbanned")
@@ -229,8 +225,6 @@ def unban_user():
 @app.route("/add_admin", methods=["GET", "POST"])
 def add_admin():
     if request.method == "POST":
-        admins = mongo.db.admins.find().sort("admin", 1)
-        banned = mongo.db.banned.find().sort("county", 1)
         selection = request.form.get("adminInput")
         existing_admin = mongo.db.admins.find_one(
             {"admin": selection})
@@ -246,8 +240,6 @@ def add_admin():
 @app.route("/remove_admin", methods=["GET", "POST"])
 def remove_admin():
     if request.method == "POST":
-        admins = mongo.db.admins.find().sort("admin", 1)
-        banned = mongo.db.banned.find().sort("county", 1)
         selection = request.form.get("adminInput")
         mongo.db.banned.remove({"admin": selection})
         flash("Admin sucessfully removed")
@@ -335,6 +327,7 @@ def edit_event(event_id):
         images.append(event["event_image"])
     return render_template("edit_event.html", e=event, categories=categories, counties=counties, event=event)
 
+
 # API expose
 @app.route("/get_events_api")
 def get_events_api():
@@ -353,8 +346,6 @@ def verify_user():
         else:
             admin = False
             return admin
-
-
 
 
 if __name__ == "__main__":
