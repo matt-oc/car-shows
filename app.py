@@ -253,6 +253,11 @@ def edit_event(event_id):
         "edit_event.html",
         event=event, categories=categories, counties=counties)
 
+# API expose
+@app.route("/get_events_api")
+def get_events_api():
+    events = list(mongo.db.events.find())
+    return events
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
