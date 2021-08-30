@@ -207,30 +207,31 @@ def delete_event(event_id):
 
 @app.route("/view_event/<event_id>")
 def view_event(event_id):
-    admin = False
     event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
-    if session.get('user') is not None:
-        # check if user is admin, if so admin True
-        admins = mongo.db.admins.find_one({"admin": session['user']})
-        if admins:
-            admin = True
-        else:
-            admin = False
+    admin = verify_user()
     images = []
     images.append(event["event_image"])
     return render_template("event.html", event=event, images=images, admin=admin)
 
 @app.route("/attend_event/<event_id>")
 def attend_event(event_id):
+    event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
     mongo.db.events.update_one({"_id": ObjectId(event_id)}, {'$push': {'attendees': session["user"]}})
     flash("You are attending this event")
-    return redirect(request.url)
+    admin = verify_user()
+    images = []
+    images.append(event["event_image"])
+    return render_template("event.html", event=event, images=images, admin=admin)
 
 @app.route("/dismiss_event/<event_id>")
 def dismiss_event(event_id):
+    event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
     mongo.db.events.update_one({"_id": ObjectId(event_id)}, {'$pull': {'attendees': {'$in': [session["user"]]}}})
     flash("You are not attending this event")
-    return redirect(request.url)
+    admin = verify_user()
+    images = []
+    images.append(event["event_image"])
+    return render_template("event.html", event=event, images=images, admin=admin)
 
 
 # Route to edit event
@@ -272,6 +273,22 @@ def edit_event(event_id):
 def get_events_api():
     events = list(mongo.db.events.find())
     return jsonify(json.loads(json_util.dumps(events)))
+
+
+def verify_user():
+    admin = False
+    if session.get('user') is not None:
+        # check if user is admin, if so admin True
+        admins = mongo.db.admins.find_one({"admin": session['user']})
+        if admins:
+            admin = True
+            return admin
+        else:
+            admin = False
+            return admin
+
+
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

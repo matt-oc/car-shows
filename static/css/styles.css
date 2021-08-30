@@ -127,6 +127,10 @@ a:hover {
   float: right;
 }
 
+.back {
+  font-size: 1.2rem
+}
+
 .card {
   box-shadow: 0 5px 21px 0 rgb(0 0 0 / 10%);
   width: 60%;

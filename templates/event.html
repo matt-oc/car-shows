@@ -4,8 +4,8 @@
 <section>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12 justify-content-start d-flex mt-5 mb-5">
-        <a href="{{url_for('get_events')}}"><i class="fas fa-angle-double-left mr-1"></i>Go Back</a>
+      <div class="col-12 justify-content-around d-flex mt-5 mb-5">
+        <a href="{{url_for('get_events')}}"><i class="fas fa-angle-double-left mr-1 back"></i>Go Back</a>
       </div>
     </div>
   </div>
@@ -26,6 +26,7 @@
         <p class="card-text"><strong>In:</strong> {{ event.event_county }}</p>
         <p class="card-text"><strong>Location:</strong> {{ event.event_location }}</p>
         <p class="card-text"><strong>€</strong> {{ event.event_cost }}</p>
+        <p class="card-text"><strong>Attendees:</strong> {{ event.attendees|length }}</p>
         <p class="card-text">{{ event.event_description }}</p>
         <p class="card-text"><small class="text-muted right">posted by: {{ event.created_by }}</small></p>
         <a href="#" class="fb" onclick="fbShare()" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
@@ -37,8 +38,8 @@
         {% for attendee in event.attendees %}
         {% if session.user == attendee %}
         <a class="btn btn-primary" href="{{url_for('dismiss_event', event_id=event._id)}}" role="button">Not Going</a>
-        {% endif %}
         {% else %}
+          {% endif %}
         <a class="btn btn-primary" href="{{url_for('attend_event', event_id=event._id)}}" role="button">Going</a>
         {% endfor%}
       </div>
