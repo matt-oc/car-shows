@@ -6,21 +6,18 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 justify-content-center d-flex mt-5 mb-5">
-        {% include 'search.html' %}
+        <a href="{{url_for('get_events')}}"><i class="fas fa-angle-double-left mr-1"></i>Go Back</a>
       </div>
     </div>
   </div>
 </section>
 <!--/Search Bar-->
 
-{% if events|length > 0 %}
-<h2> Events List: </h2>
-{% for event in events %}
-<a href="{{url_for('view_event', event_id=event._id)}}">
+{% if event|length > 0 %}
 <div class="row p-0">
   <div class="col-12 d-flex justify-content-center p-0 content">
     <div class="card mb-3 w-md-60">
-      <img class="card-img-top" src="{{ url_for('file', filename=images[loop.index - 1]) }}" alt="Event image" onerror="this.src='/static/images/default-event.jpg'">
+      <img class="card-img-top" src="{{ url_for('file', filename=images[0]) }}" alt="Event image" onerror="this.src='/static/images/default-event.jpg'">
       <div class="card-body">
         <h3 class="card-title">{{ event.event_name }}</h3>
         <p class="card-text green">{{ event.category_name }}</p>
@@ -42,10 +39,7 @@
     </div>
   </div>
 </div>
-</a>
 
-
-{% endfor %}
 
 {% else %}
 <h2> No results found </h2>

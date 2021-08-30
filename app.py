@@ -202,6 +202,23 @@ def delete_event(event_id):
     return redirect(url_for("get_events"))
 
 
+@app.route("/view_event/<event_id>")
+def view_event(event_id):
+    admin = False
+    event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
+    print(event)
+    if session.get('user') is not None:
+        # check if user is admin, if so admin True
+        admins = mongo.db.admins.find_one({"admin": session['user']})
+        if admins:
+            admin = True
+        else:
+            admin = False
+    images = []
+    images.append(event["event_image"])
+    return render_template("event.html", event=event, images=images, admin=admin)
+
+
 # Route to edit event
 @app.route("/edit_event/<event_id>", methods=["GET", "POST"])
 def edit_event(event_id):
