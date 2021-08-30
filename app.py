@@ -62,7 +62,7 @@ def search():
     images = []
     for event in events:
         images.append(event["event_image"])
-    return render_template("events.html", events=events, images=images, admin=admin)
+    return render_template("search_results.html", events=events, images=images, admin=admin, query=query)
 
 
 # Route for registration
@@ -193,12 +193,54 @@ def add_event():
 def admin_tools():
     admins = mongo.db.admins.find().sort("admin", 1)
     banned = mongo.db.banned.find().sort("county", 1)
+    users = mongo.db.users.find().sort("user", 1)
+    return render_template(
+        "admin_tools.html", banned=banned, admins=admins, users=users)
+
+
+
+
+@app.route("/ban_user", methods=["GET", "POST"])
+def ban_user():
+    if request.method == "POST":
+
+        #mongo.db.events.update({"_id": ObjectId(event_id)}, event)
+        flash("Event updated successfully")
+
+    admins = mongo.db.admins.find().sort("admin", 1)
+    banned = mongo.db.banned.find().sort("county", 1)
     return render_template(
         "admin_tools.html", banned=banned, admins=admins)
 
 
-@app.route("/ban_list", methods=["GET", "POST"])
-def ban_list():
+@app.route("/unban_user", methods=["GET", "POST"])
+def unban_user():
+    if request.method == "POST":
+
+        #mongo.db.events.update({"_id": ObjectId(event_id)}, event)
+        flash("Event updated successfully")
+
+    admins = mongo.db.admins.find().sort("admin", 1)
+    banned = mongo.db.banned.find().sort("county", 1)
+    return render_template(
+        "admin_tools.html", banned=banned, admins=admins)
+
+
+@app.route("/add_admin", methods=["GET", "POST"])
+def add_admin():
+    if request.method == "POST":
+
+        #mongo.db.events.update({"_id": ObjectId(event_id)}, event)
+        flash("Event updated successfully")
+
+    admins = mongo.db.admins.find().sort("admin", 1)
+    banned = mongo.db.banned.find().sort("county", 1)
+    return render_template(
+        "admin_tools.html", banned=banned, admins=admins)
+
+
+@app.route("/remove_admin", methods=["GET", "POST"])
+def remove_admin():
     if request.method == "POST":
 
         #mongo.db.events.update({"_id": ObjectId(event_id)}, event)

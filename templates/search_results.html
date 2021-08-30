@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!--Search Bar for Events-->
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 justify-content-center d-flex mt-5 mb-5">
+        {% include 'search.html' %}
+      </div>
+    </div>
+  </div>
+</section>
+<!--/Search Bar-->
+
+{% if events|length > 0 %}
+<h2> Results for {{ query }} : </h2>
+{% for event in events %}
+<div class="row p-0">
+  <div class="col-12 d-flex justify-content-center p-0 content">
+    <div class="card mb-3 w-md-60">
+      <a href="{{url_for('view_event', event_id=event._id)}}" class="card-img-top"><img class="card-img-top" src="{{ url_for('file', filename=images[loop.index - 1]) }}" alt="Event image" onerror="this.src='/static/images/default-event.jpg'"></a>
+      <div class="card-body">
+        <h3 class="card-title">{{ event.event_name }}</h3>
+        <p class="card-text blue">{{ event.category_name }}</p>
+        <hr>
+        <p class="card-text"><strong>When:</strong> {{ event.event_date }}</p>
+        <p class="card-text"><strong>At:</strong> {{ event.event_time }}</p>
+        <p class="card-text"><strong>In:</strong> {{ event.event_county }}</p>
+        <p class="card-text"><strong>Location:</strong> {{ event.event_location }}</p>
+        <p class="card-text"><strong>€</strong> {{ event.event_cost }}</p>
+        <p class="card-text"><strong>Attendees:</strong> {{ event.attendees|length }}</p>
+        <p class="card-text">{{ event.event_description|truncate(400, True) }}</p>
+        <p class="card-text"><small class="text-muted right">posted by: {{ event.created_by }}</small></p>
+        <a href="{{url_for('view_event', event_id=event._id)}}">View More<i class="fas fa-chevron-down ml-1"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endfor %}
+
+{% else %}
+<h2> No results found </h2>
+{% endif %}
+
+{% endblock %}

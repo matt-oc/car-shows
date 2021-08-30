@@ -5,21 +5,26 @@
 
 <div class="row">
   <div class="col-12 justify-content-center d-flex content">
-    <form action="{{ url_for('ban_list')}}" method="POST" id="editBanned" class="admin-form" enctype="multipart/form-data">
+    <form action="{{ url_for('remove_admin')}}" method="POST" id="removeAdmin" class="admin-form" enctype="multipart/form-data">
       <fieldset>
         <div class="form-group">
-          <label for="categoryInput">Administrators</label>
-          <select class="form-control" id="categoryInput" name="categoryInput"required>
-            <option value="">Choose</option>
+          <label for="adminInput">Current Administrators</label>
+          <select class="form-control" id="adminInput" name="adminInput"required>
             {% for admin in admins %}
             <option>{{ admin.admin }}</option>
             {% endfor %}
           </select>
         </div>
+      </fieldset>
+      <div class="button-container">
+        <button type="submit" form="removeAdmin" class="btn btn-primary" id="removeAdmin-submit">Remove admin</button>
+      </div>
+    </form>
+    <form action="{{ url_for('unban_user')}}" method="POST" id="removeBanned" class="admin-form" enctype="multipart/form-data">
+      <fieldset>
         <div class="form-group">
-          <label for="countyInput">Banned Users</label>
-          <select class="form-control" id="countyInput" name="countyInput" required>
-            <option value="">Choose</option>
+          <label for="bannedUserInput">Currently Banned Users</label>
+          <select class="form-control" id="bannedUserInput" name="bannedUserInput" required>
             {% for banned_user in banned %}
             <option>{{ banned_user.user }}</option>
             {% endfor %}
@@ -27,8 +32,37 @@
         </div>
       </fieldset>
       <div class="button-container">
-        <button type="submit" form="editEvent" class="btn btn-primary" id="addEvent-submit">Save</button>
-        <a class="btn btn-primary" href="{{url_for('get_events')}}" role="button">Cancel</a>
+        <button type="submit" form="removeBanned" class="btn btn-primary" id="removeBanned-submit">Unban user</button>
+      </div>
+    </form>
+    <form action="{{ url_for('add_admin')}}" method="POST" id="addAdmin" class="admin-form" enctype="multipart/form-data">
+      <fieldset>
+        <div class="form-group">
+          <label for="adminInput">Current Users</label>
+          <select class="form-control" id="adminInput" name="adminInput"required>
+            {% for user in users %}
+            <option>{{ user.user }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </fieldset>
+      <div class="button-container">
+        <button type="submit" form="addAdmin" class="btn btn-primary" id="addAdmin-submit">Make admin</button>
+      </div>
+    </form>
+    <form action="{{ url_for('ban_user')}}" method="POST" id="addBanned" class="admin-form" enctype="multipart/form-data">
+      <fieldset>
+        <div class="form-group">
+          <label for="bannedUserInput">Current Users</label>
+          <select class="form-control" id="userInput" name="userInput" required>
+            {% for user in users %}
+            <option>{{ user.user }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </fieldset>
+      <div class="button-container">
+        <button type="submit" form="addBanned" class="btn btn-primary" id="addBanned-submit">Ban user</button>
       </div>
     </form>
   </div>
