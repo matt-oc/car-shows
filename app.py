@@ -208,12 +208,11 @@ def ban_user():
             {"user": selection})
         if existing_banned:
             flash("User already banned")
-            return render_template(
-                "admin_tools.html", banned=banned, admins=admins)
+            return redirect(url_for("admin_tools"))
         else:
             mongo.db.banned.insert_one({"user": selection})
             flash("User sucessfully banned")
-            return render_template("admin_tools.html", banned=banned, admins=admins)
+            return redirect(url_for("admin_tools"))
 
 
 @app.route("/unban_user", methods=["GET", "POST"])
@@ -224,7 +223,7 @@ def unban_user():
         selection = request.form.get("bannedUserInput")
         mongo.db.banned.remove({"user": selection})
         flash("User sucessfully unbanned")
-        return render_template("admin_tools.html", banned=banned, admins=admins)
+        return redirect(url_for("admin_tools"))
 
 
 @app.route("/add_admin", methods=["GET", "POST"])
@@ -237,12 +236,11 @@ def add_admin():
             {"admin": selection})
         if existing_admin:
             flash("User already admin")
-            return render_template(
-                "admin_tools.html", banned=banned, admins=admins)
+            return redirect(url_for("admin_tools"))
         else:
-            mongo.db.admin.insert_one({"admin": selection})
+            mongo.db.admins.insert_one({"admin": selection})
             flash("User sucessfully made admin")
-            return render_template("admin_tools.html", banned=banned, admins=admins)
+            return redirect(url_for("admin_tools"))
 
 
 @app.route("/remove_admin", methods=["GET", "POST"])
@@ -253,7 +251,7 @@ def remove_admin():
         selection = request.form.get("adminInput")
         mongo.db.banned.remove({"admin": selection})
         flash("Admin sucessfully removed")
-        return render_template("admin_tools.html", banned=banned, admins=admins)
+        return redirect(url_for("admin_tools"))
 
 
 # Gracefully handle errors/ missing pages
