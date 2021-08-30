@@ -213,16 +213,16 @@ def view_event(event_id):
     images.append(event["event_image"])
     return render_template("event.html", event=event, images=images, admin=admin)
 
+
 @app.route("/attend_event/<event_id>")
 def attend_event(event_id):
-    event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
     mongo.db.events.update_one({"_id": ObjectId(event_id)}, {'$push': {'attendees': session["user"]}})
     flash("You are attending this event")
     return redirect(url_for("get_events"))
 
+
 @app.route("/dismiss_event/<event_id>")
 def dismiss_event(event_id):
-    event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
     mongo.db.events.update_one({"_id": ObjectId(event_id)}, {'$pull': {'attendees': {'$in': [session["user"]]}}})
     flash("You are not attending this event")
     return redirect(url_for("get_events"))
@@ -258,9 +258,10 @@ def edit_event(event_id):
     event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
     counties = mongo.db.counties.find().sort("county", 1)
-    return render_template(
-        "edit_event.html",
-        event=event, categories=categories, counties=counties)
+    images = []
+    for e in event:
+        images.append(event["event_image"])
+    return render_template("edit_event.html", e=event, categories=categories, counties=counties, event=event)
 
 # API expose
 @app.route("/get_events_api")

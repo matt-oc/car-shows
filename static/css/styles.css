@@ -127,6 +127,10 @@ a:hover {
   float: right;
 }
 
+.left {
+  float: left;
+}
+
 .back {
   font-size: 1.2rem
 }
@@ -153,6 +157,14 @@ a:hover {
 
 .btn-nav:hover {
   background-color: rgba(240,160,122, .7);
+}
+
+.attend li{
+  display: inline;
+}
+
+.attend {
+  margin: 2rem;
 }
 
 .navbar-dark .navbar-nav .nav-link {
