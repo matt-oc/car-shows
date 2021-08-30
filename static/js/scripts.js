@@ -101,3 +101,49 @@ function ajax(method, url, data, success, error) {
   };
   xhr.send(data);
 }
+
+
+// Google maps
+$(document).ready(function () {
+    $('.google-map').each(function () {
+        var lng = $(this).data('lng');
+        var lat = $(this).data('lat');
+
+        esquire.initGoogleMaps(this, lat, lng);
+    });
+
+});
+
+
+function initMap() {
+
+  var myOptions = {
+    zoom: 14,
+    scrollwheel: false,
+    center: new google.maps.LatLng(52.161583, -7.154476),
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles: [
+      {
+        featureType: 'landscape.natural',
+        elementType: 'all',
+        stylers: [
+          {
+            color: '#f8f8f8',
+            gamma: 5
+          }
+        ]
+      }]
+  };
+  map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
+  esq = new google.maps.Marker({
+    map: map, position: new google.maps.LatLng(52.161583, -7.154476)
+  });
+  infoEsq = new google.maps.InfoWindow({
+    pixelOffset: new google.maps.Size(0, 0),
+    content: '<p style="margin-bottom: 0px; display:flex;"><div style="float:right; text-align:center;">Esquire & Raglan Road<br>1 Little Market Street<br> Tramore, Co.Waterford</div></p>'
+  });
+
+
+  infoEsq.open(map, esq);
+  google.maps.event.addDomListener(window, 'load', initMap);
+}
