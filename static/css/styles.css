@@ -52,7 +52,7 @@ strong {
   margin: 0 15px 0 15px;
 }
 
-.register-form, .login-form {
+.register-form, .login-form, .contact-form {
   padding: 20px;
 }
 
@@ -125,7 +125,7 @@ strong {
 }
 
 .btn-primary:hover {
-  border-color: #9ab87a;
+  border-color: #9ab87a!important;
 }
 
 .btn-nav {
