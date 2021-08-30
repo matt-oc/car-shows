@@ -90,7 +90,7 @@ def register():
         flash("Thanks for registering")
         return redirect(url_for("profile", username=session["user"]))
 
-    return render_template("events.html")
+    return redirect(url_for("get_events"))
 
 
 # Route for login
@@ -105,7 +105,7 @@ def login():
 
         if banned_user:
             flash("Sorry You have been banned, please contact Admin")
-            return render_template("events.html")
+            return redirect(url_for("get_events"))
 
         if existing_user:
             if check_password_hash(
@@ -116,11 +116,11 @@ def login():
 
             else:
                 flash("Incorrect login details")
-                return render_template("events.html")
+                return redirect(url_for("get_events"))
         else:
             flash("Incorrect login details")
             return render_template("events.html")
-    return render_template("events.html")
+    return redirect(url_for("get_events"))
 
 
 # Route for profile

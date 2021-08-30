@@ -4,11 +4,15 @@
 <div class="row">
   <div class="col-12">
     <h2>Welcome back {{ username }}</h2>
+    <hr class="short">
     <h4><strong>Your email is:</strong> {{ email }}</h4>
     <h4><strong>Car owned:</strong> {{ car }}</h4>
     {% if admin == true %}
-    <a class="btn btn-primary" href="{{url_for('admin_tools')}}" role="button">Admin tools</a>
+    <div class="w-100 d-flex justify-content-center mt-3 mb-5">
+    <a class="btn btn-primary" href="{{url_for('admin_tools')}}" role="button"><i class="fas fa-clipboard-list mr-3"></i>Admin tools</a>
+    </div>
     {% endif %}
+    <hr class="short">
   </div>
 </div>
 

@@ -103,6 +103,10 @@ a:hover {
   margin-bottom: 1.5rem
 }
 
+.short {
+  width: 25%;
+}
+
 #eventImage {
   display: none;
 }
