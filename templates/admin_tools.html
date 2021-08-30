@@ -4,7 +4,7 @@
 <h2> Admin Tools </h2>
 
 <div class="row">
-  <div class="col-12 justify-content-center d-flex content">
+  <div class="col-lg-6 col-12 justify-content-center d-flex content">
     <form action="{{ url_for('remove_admin')}}" method="POST" id="removeAdmin" class="admin-form" enctype="multipart/form-data">
       <fieldset>
         <div class="form-group">
@@ -21,10 +21,10 @@
       </div>
     </form>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-12 justify-content-center d-flex content">
+
+
+  <div class="col-lg-6 col-12 justify-content-center d-flex content">
     <form action="{{ url_for('unban_user')}}" method="POST" id="removeBanned" class="admin-form" enctype="multipart/form-data">
       <fieldset>
         <div class="form-group">
@@ -42,10 +42,10 @@
     </form>
 
   </div>
-</div>
 
-<div class="row">
-  <div class="col-12 justify-content-center d-flex content">
+
+
+  <div class="col-lg-6 col-12 justify-content-center d-flex content">
     <form action="{{ url_for('add_admin')}}" method="POST" id="addAdmin" class="admin-form" enctype="multipart/form-data">
       <fieldset>
         <div class="form-group">
@@ -62,10 +62,10 @@
       </div>
     </form>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-12 justify-content-center d-flex content">
+
+
+  <div class="col-lg-6 col-12 justify-content-center d-flex content">
     <form action="{{ url_for('ban_user')}}" method="POST" id="addBanned" class="admin-form" enctype="multipart/form-data">
       <fieldset>
         <div class="form-group">
