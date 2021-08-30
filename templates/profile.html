@@ -8,7 +8,8 @@
     <h4><strong>Your email is:</strong> {{ email }}</h4>
     <h4><strong>Car owned:</strong> {{ car }}</h4>
     {% if admin == true %}
-    <div class="w-100 d-flex justify-content-center mt-3 mb-5">
+    <h4><strong>Status:</strong> admin</h4>
+    <div class="w-100 d-flex justify-content-center mt-5 mb-5">
     <a class="btn btn-primary" href="{{url_for('admin_tools')}}" role="button"><i class="fas fa-clipboard-list mr-3"></i>Admin tools</a>
     </div>
     {% endif %}
@@ -17,6 +18,9 @@
 </div>
 
 <h5> Your listed events: </h5>
+{% if user_events|count == 0 %}
+<h4> No events to show </h4>
+{% endif%}
 {% for event in user_events %}
 <div class="row p-0">
   <div class="col-12 d-flex justify-content-center p-0 content">
