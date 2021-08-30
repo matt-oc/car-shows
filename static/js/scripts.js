@@ -18,3 +18,37 @@
 window.setTimeout(function() {
     $(".alert").slideUp(400);
 }, 4000);
+
+
+
+
+var getWindowOptions = function() {
+  var width = 500;
+  var height = 350;
+  var left = (window.innerWidth / 2) - (width / 2);
+  var top = (window.innerHeight / 2) - (height / 2);
+
+  return [
+    'resizable,scrollbars,status',
+    'height=' + height,
+    'width=' + width,
+    'left=' + left,
+    'top=' + top,
+  ].join();
+};
+
+function twShare(id){
+  const url = window.location.href;
+  const lastSegment = url.split("/").pop();
+var shareUrl = 'https://twitter.com/intent/tweet?url=' + window.location.href + lastSegment;
+  var win = window.open(shareUrl, 'ShareOnTwitter', getWindowOptions());
+  win.opener = null;
+};
+
+function fbShare(){
+  const url = window.location.href
+  const lastSegment = url.split("/").pop();
+var shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + window.location.href + lastSegment;
+  var win = window.open(shareUrl, 'facebook-share-dialog', getWindowOptions());
+  win.opener = null; 
+};
