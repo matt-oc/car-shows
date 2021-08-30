@@ -100,6 +100,13 @@ def login():
         existing_user = mongo.db.users.find_one(
             {"user": request.form.get("name").lower()})
 
+        banned_user = mongo.db.banned.find_one(
+            {"user": request.form.get("name").lower()})
+
+        if banned_user:
+            flash("Sorry You have been banned, please contact Admin")
+            return render_template("events.html")
+
         if existing_user:
             if check_password_hash(
               existing_user["password"], request.form.get("password")):
@@ -133,10 +140,11 @@ def profile(username):
         images.append(event["event_image"])
 
     if session["user"]:
+        admin = verify_user()
         return render_template(
             "profile.html", username=username,
             email=email, car=car, user_events=user_events,
-            images=images)
+            images=images, admin=admin)
     return redirect(url_for("get_events"))
 
 
@@ -156,7 +164,6 @@ def add_event():
             file = request.files['eventImage']
             filename = request.form.get("eventName")
             # storing the filename in the database to retreive the image
-            print(filename)
             mongo.save_file(filename, file)
 
         event = {
@@ -180,6 +187,27 @@ def add_event():
     counties = mongo.db.counties.find().sort("county", 1)
     return render_template(
         "add_event.html", categories=categories, counties=counties)
+
+
+@app.route("/admin_tools")
+def admin_tools():
+    admins = mongo.db.admins.find().sort("admin", 1)
+    banned = mongo.db.banned.find().sort("county", 1)
+    return render_template(
+        "admin_tools.html", banned=banned, admins=admins)
+
+
+@app.route("/ban_list", methods=["GET", "POST"])
+def ban_list():
+    if request.method == "POST":
+
+        #mongo.db.events.update({"_id": ObjectId(event_id)}, event)
+        flash("Event updated successfully")
+
+    admins = mongo.db.admins.find().sort("admin", 1)
+    banned = mongo.db.banned.find().sort("county", 1)
+    return render_template(
+        "admin_tools.html", banned=banned, admins=admins)
 
 
 # Gracefully handle errors/ missing pages
