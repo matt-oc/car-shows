@@ -14,7 +14,7 @@
 <!--/Search Bar-->
 
 {% if events|length > 0 %}
-<h2> Events List: </h2>
+<h2> All Events: </h2>
 {% for event in events %}
 <div class="row p-0">
   <div class="col-12 d-flex justify-content-center p-0 content">
@@ -22,7 +22,7 @@
       <a href="{{url_for('view_event', event_id=event._id)}}" class="card-img-top"><img class="card-img-top" src="{{ url_for('file', filename=images[loop.index - 1]) }}" alt="Event image" onerror="this.src='/static/images/default-event.jpg'"></a>
       <div class="card-body">
         <h3 class="card-title">{{ event.event_name }}</h3>
-        <p class="card-text green">{{ event.category_name }}</p>
+        <p class="card-text blue">{{ event.category_name }}</p>
         <hr>
         <p class="card-text"><strong>When:</strong> {{ event.event_date }}</p>
         <p class="card-text"><strong>At:</strong> {{ event.event_time }}</p>

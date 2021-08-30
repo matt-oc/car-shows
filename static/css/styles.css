@@ -38,14 +38,18 @@ strong {
 }
 
 .navbar {
-  background-color: #c0edc9;
+  background-color: #49284F;
   color: #000000;
 }
 
 .navbar-brand {
   font-family: 'Nunito', sans-serif;
   font-size: 1.75rem;
-  color: #000
+  color: #000;
+}
+
+.nav-item {
+  margin: 0 15px 0 15px;
 }
 
 .register-form, .login-form {
@@ -72,6 +76,11 @@ strong {
   border-radius: 20px;
 }
 
+.navbar-brand img {
+  height: 60px;
+    margin-top: -12px;
+    margin-bottom: -12px;
+}
 
 .form-image {
   min-height: 120px;
@@ -93,8 +102,12 @@ strong {
   margin-left: 10px;
 }
 
-.green {
-  color: #04852f;
+.blue {
+  color: #219ebc;
+}
+
+.orange {
+  color: #9ab87a;
 }
 
 .right {
@@ -107,17 +120,25 @@ strong {
 }
 
 .btn-primary {
-  background-color: #DC565C;
-  border-color: #DC565C;
+  background-color: #9ab87a;
+  border-color: #9ab87a;
+}
+
+.btn-primary:hover {
+  border-color: #9ab87a;
 }
 
 .btn-nav {
   margin-right: 5px;
-  background-color: rgba(178, 212, 187, .7);
+  background-color: rgba(240,160,122, 1);
 }
 
 .btn-nav:hover {
-  background-color: rgba(178, 212, 187, 1);
+  background-color: rgba(240,160,122, .7);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255,1);
 }
 
 .btn-primary:hover {
@@ -134,8 +155,20 @@ strong {
   width: 50%;
 }
 
+.search-button {
+  border-radius: 80px;
+  height: 3rem;
+  width: 3rem;
+  background-color: #9ab87a;
+}
+
+.search-button:hover {
+  background-color: #9ab87a;
+  border: 1px solid #48294F;
+}
+
 #query {
-  padding: 20px;
+  padding: 28px;
   width: 100%;
 }
 
@@ -143,27 +176,29 @@ strong {
   margin-bottom: 5rem;
 }
 
+
 /* Footer */
 /*  sticky footer adapted from https://stackoverflow.com/questions/3443606/make-footer-stick-to-bottom-of-page-correctly */
 .footer {
   margin-top: 70px;
   margin-bottom: 0px;
   font-size: 1.1rem;
-  background-color: #c0edc9;
+  background-color: #49284F;
   font-family: 'Nunito', sans-serif;
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
+  color: #fff;
 }
 
 .footer i {
-  color: #000;
+  color: #9ab87a;
   font-size: 1.4rem;
   margin-left: 5px;
 }
 
-.footer-credits {
+.footer-item {
   margin: 0 20px 0 20px;
   opacity: .7
 }

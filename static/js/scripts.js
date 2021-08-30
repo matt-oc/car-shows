@@ -50,5 +50,54 @@ function fbShare(){
   const lastSegment = url.split("/").pop();
 var shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + window.location.href + lastSegment;
   var win = window.open(shareUrl, 'facebook-share-dialog', getWindowOptions());
-  win.opener = null; 
+  win.opener = null;
 };
+
+// Contact us form
+var contactModal = document.getElementById('contactModal')
+
+contactModal.addEventListener('shown.bs.modal', function() {
+  myInput.focus()
+})
+
+
+var form = document.getElementById("contact");
+
+// Success and Error functions for after the form is submitted
+
+function success() {
+  form.reset();
+  alert("Success! we will be in touch shortly.");
+  document.getElementById("closeContactModal").click(); // Close the modal on success
+
+}
+
+function error() {
+  alert("Oops! There was a problem.");
+}
+
+// handle the form submission event from formspree.io
+
+form.addEventListener("submit", function(ev) {
+  ev.preventDefault(); // stop the standard form POST submit so we can stay on our page and display a response to the user.
+  var data = new FormData(form);
+  ajax(form.method, form.action, data, success, error);
+});
+
+
+// helper function for sending an AJAX request from formspree.io
+
+function ajax(method, url, data, success, error) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url);
+  xhr.setRequestHeader("Accept", "application/json");
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState !== XMLHttpRequest.DONE) return;
+    if (xhr.status === 200) {
+      success(xhr.response, xhr.responseType);
+    } else {
+      error(xhr.status, xhr.response, xhr.responseType);
+    }
+  };
+  xhr.send(data);
+}

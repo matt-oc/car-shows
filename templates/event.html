@@ -19,7 +19,7 @@
       <img class="card-img-top" src="{{ url_for('file', filename=images[0]) }}" alt="Event image" onerror="this.src='/static/images/default-event.jpg'">
       <div class="card-body">
         <h3 class="card-title">{{ event.event_name }}</h3>
-        <p class="card-text green">{{ event.category_name }}</p>
+        <p class="card-text blue">{{ event.category_name }}</p>
         <hr>
         <p class="card-text"><strong>When:</strong> {{ event.event_date }}</p>
         <p class="card-text"><strong>At:</strong> {{ event.event_time }}</p>
