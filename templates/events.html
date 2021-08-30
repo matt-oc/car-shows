@@ -16,7 +16,6 @@
 {% if events|length > 0 %}
 <h2> Events List: </h2>
 {% for event in events %}
-<a href="{{url_for('view_event', event_id=event._id)}}">
 <div class="row p-0">
   <div class="col-12 d-flex justify-content-center p-0 content">
     <div class="card mb-3 w-md-60">
@@ -32,6 +31,7 @@
         <p class="card-text"><strong>€</strong> {{ event.event_cost }}</p>
         <p class="card-text">{{ event.event_description }}</p>
         <p class="card-text"><small class="text-muted right">posted by: {{ event.created_by }}</small></p>
+        <a href="{{url_for('view_event', event_id=event._id)}}">View More</a>
 
         {% if session.user == event.created_by or admin == true %}
         <a class="btn btn-primary" href="{{url_for('delete_event', event_id=event._id)}}" onclick="return confirm('Are you sure you want to delete?');" role="button">Delete</a>
@@ -42,7 +42,7 @@
     </div>
   </div>
 </div>
-</a>
+
 
 
 {% endfor %}
