@@ -10,10 +10,10 @@
           </div>
           <div class="modal-body">
             <div class="col-md-12 col-sm-12 d-flex justify-content-center">
-              <form action="https://formspree.io/f/mqkgvaea" method="POST" id="contact" class="contact">
+              <form action="https://formspree.io/f/mqkgvaea" method="POST" id="contact" class="contact-form">
                 <fieldset>
                   <label for="name">Name:</label><br>
-                  <input type="text" id="name" required name="name"><br>
+                  <input type="text" id="name" required pattern="^[a-zA-Z0-9]{4,14}$" minlength="4" maxlength="25" required name="name"><br>
                   <label for="email">Email:</label><br>
                   <input type="Email" id="email" name="email" required><br>
                   <label for="message">Message:</label><br>
@@ -23,8 +23,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn bg-red color-white" data-dismiss="modal" id="closeContactModal">Close</button>
-            <button type="submit" form="contact" class="btn contact-btn-submit bg-purple color-white" id="contact-submit" data-submit="Sending">Submit</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="closeContactModal">Close</button>
+            <button type="submit" form="contact" class="btn btn-primary" id="contact-submit" data-submit="Sending">Submit</button>
           </div>
         </div>
       </div>
