@@ -155,6 +155,13 @@ def logout():
     return redirect(url_for("get_events"))
 
 
+@app.route("/view_map")
+def view_map():
+    return render_template(
+        "view_map.html")
+
+
+
 @app.route("/add_event", methods=["GET", "POST"])
 def add_event():
     if request.method == "POST":
@@ -176,7 +183,9 @@ def add_event():
             "category_name": request.form.get("categoryInput"),
             "event_county": request.form.get("countyInput"),
             "event_description": request.form.get("eventDescription"),
-            "created_by": session["user"]
+            "created_by": session["user"],
+            "lat": request.form.get("lat"),
+            "lng": request.form.get("lng")
         }
 
         mongo.db.events.insert_one(event)
@@ -313,7 +322,9 @@ def edit_event(event_id):
             "category_name": request.form.get("categoryInput"),
             "event_county": request.form.get("countyInput"),
             "event_description": request.form.get("eventDescription"),
-            "created_by": session["user"]
+            "created_by": session["user"],
+            "lat": request.form.get("lat"),
+            "lng": request.form.get("lng")
         }
 
         mongo.db.events.update({"_id": ObjectId(event_id)}, event)
