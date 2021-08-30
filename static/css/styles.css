@@ -94,6 +94,10 @@ a:hover {
   border-radius: 20px;
 }
 
+.admin-form {
+  width: 80%;
+}
+
 .navbar-brand img {
   height: 60px;
     margin-top: -12px;

@@ -193,63 +193,67 @@ def add_event():
 def admin_tools():
     admins = mongo.db.admins.find().sort("admin", 1)
     banned = mongo.db.banned.find().sort("county", 1)
-    users = mongo.db.users.find().sort("user", 1)
+    users = list(mongo.db.users.find().sort("user", 1))
     return render_template(
         "admin_tools.html", banned=banned, admins=admins, users=users)
-
-
 
 
 @app.route("/ban_user", methods=["GET", "POST"])
 def ban_user():
     if request.method == "POST":
-
-        #mongo.db.events.update({"_id": ObjectId(event_id)}, event)
-        flash("Event updated successfully")
-
-    admins = mongo.db.admins.find().sort("admin", 1)
-    banned = mongo.db.banned.find().sort("county", 1)
-    return render_template(
-        "admin_tools.html", banned=banned, admins=admins)
+        admins = mongo.db.admins.find().sort("admin", 1)
+        banned = mongo.db.banned.find().sort("county", 1)
+        selection = request.form.get("userInput")
+        existing_banned = mongo.db.banned.find_one(
+            {"user": selection})
+        if existing_banned:
+            flash("User already banned")
+            return render_template(
+                "admin_tools.html", banned=banned, admins=admins)
+        else:
+            mongo.db.banned.insert_one({"user": selection})
+            flash("User sucessfully banned")
+            return render_template("admin_tools.html", banned=banned, admins=admins)
 
 
 @app.route("/unban_user", methods=["GET", "POST"])
 def unban_user():
     if request.method == "POST":
-
-        #mongo.db.events.update({"_id": ObjectId(event_id)}, event)
-        flash("Event updated successfully")
-
-    admins = mongo.db.admins.find().sort("admin", 1)
-    banned = mongo.db.banned.find().sort("county", 1)
-    return render_template(
-        "admin_tools.html", banned=banned, admins=admins)
+        admins = mongo.db.admins.find().sort("admin", 1)
+        banned = mongo.db.banned.find().sort("county", 1)
+        selection = request.form.get("bannedUserInput")
+        mongo.db.banned.remove({"user": selection})
+        flash("User sucessfully unbanned")
+        return render_template("admin_tools.html", banned=banned, admins=admins)
 
 
 @app.route("/add_admin", methods=["GET", "POST"])
 def add_admin():
     if request.method == "POST":
-
-        #mongo.db.events.update({"_id": ObjectId(event_id)}, event)
-        flash("Event updated successfully")
-
-    admins = mongo.db.admins.find().sort("admin", 1)
-    banned = mongo.db.banned.find().sort("county", 1)
-    return render_template(
-        "admin_tools.html", banned=banned, admins=admins)
+        admins = mongo.db.admins.find().sort("admin", 1)
+        banned = mongo.db.banned.find().sort("county", 1)
+        selection = request.form.get("adminInput")
+        existing_admin = mongo.db.admins.find_one(
+            {"admin": selection})
+        if existing_admin:
+            flash("User already admin")
+            return render_template(
+                "admin_tools.html", banned=banned, admins=admins)
+        else:
+            mongo.db.admin.insert_one({"admin": selection})
+            flash("User sucessfully made admin")
+            return render_template("admin_tools.html", banned=banned, admins=admins)
 
 
 @app.route("/remove_admin", methods=["GET", "POST"])
 def remove_admin():
     if request.method == "POST":
-
-        #mongo.db.events.update({"_id": ObjectId(event_id)}, event)
-        flash("Event updated successfully")
-
-    admins = mongo.db.admins.find().sort("admin", 1)
-    banned = mongo.db.banned.find().sort("county", 1)
-    return render_template(
-        "admin_tools.html", banned=banned, admins=admins)
+        admins = mongo.db.admins.find().sort("admin", 1)
+        banned = mongo.db.banned.find().sort("county", 1)
+        selection = request.form.get("adminInput")
+        mongo.db.banned.remove({"admin": selection})
+        flash("Admin sucessfully removed")
+        return render_template("admin_tools.html", banned=banned, admins=admins)
 
 
 # Gracefully handle errors/ missing pages
