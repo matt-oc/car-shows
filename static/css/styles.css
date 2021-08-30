@@ -15,7 +15,7 @@ body {
   margin-bottom: 40px;
 }
 
-h1, h2, h4 {
+h1, h2, h4, h5 {
   text-align: center;
 }
 
@@ -33,8 +33,21 @@ h3 {
   font-size: 2.2rem;
 }
 
+h5 {
+  font-size: 1.7rem;
+  margin: 20px;
+}
+
 strong {
   color: #333634;
+}
+
+a {
+  color: #219FBC;
+}
+
+a:hover {
+  color: #9AB879;
 }
 
 .navbar {
@@ -49,7 +62,7 @@ strong {
 }
 
 .nav-item {
-  margin: 0 15px 0 15px;
+  margin: 0 12px 0 12px;
 }
 
 .register-form, .login-form, .contact-form {
@@ -72,7 +85,7 @@ strong {
   max-width: 1200px;
   width: 50%;
   padding: 50px;
-  background-color: rgba(178, 212, 187, .7);
+  background-color: rgba(178, 212, 187, .4);
   border-radius: 20px;
 }
 
@@ -131,6 +144,7 @@ strong {
 .btn-nav {
   margin-right: 5px;
   background-color: rgba(240,160,122, 1);
+  border-bottom-left-radius: 10px;
 }
 
 .btn-nav:hover {
@@ -223,6 +237,9 @@ strong {
 @media screen and (max-width: 992px) {
   .add-event-form, .edit-event-form {
     width: 85%;
+  }
+  .nav-item {
+    margin: 10px;
   }
 }
 

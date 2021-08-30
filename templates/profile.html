@@ -3,13 +3,13 @@
 
 <div class="row">
   <div class="col-12">
-    <h2>{{ username }}'s Profile</h2>
+    <h2>Welcome back {{ username }}</h2>
     <h4><strong>Your email is:</strong> {{ email }}</h4>
     <h4><strong>Car owned:</strong> {{ car }}</h4>
   </div>
 </div>
 
-<h2> {{ username }}'s Events: </h2>
+<h5> Your listed events: </h5>
 {% for event in user_events %}
 <div class="row p-0">
   <div class="col-12 d-flex justify-content-center p-0 content">
