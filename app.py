@@ -187,7 +187,6 @@ def add_event():
             "category_name": request.form.get("categoryInput"),
             "event_county": request.form.get("countyInput"),
             "event_description": request.form.get("eventDescription"),
-
             "created_by": session["user"],
             "lat": request.form.get("lat"),
             "lng": request.form.get("lng")
@@ -234,8 +233,7 @@ def unban_user():
         mongo.db.banned.remove({"user": selection})
         flash("User sucessfully unbanned")
         return redirect(url_for("admin_tools"))
-            "created_by": session["user"]
-        }
+        
 
         mongo.db.events.insert_one(event)
         flash("Event added successfully")
