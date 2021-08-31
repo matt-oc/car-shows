@@ -10,3 +10,8 @@ Website for Irish car shows and events to be listed
 
 username:user
 password:password
+
+### admin login:
+
+username:admin
+password:password
