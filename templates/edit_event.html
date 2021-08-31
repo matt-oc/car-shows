@@ -29,7 +29,7 @@
           <select class="form-control" id="countyInput" name="countyInput" required>
             <option value="">Choose</option>
             {% for county in counties %}
-            {% if county.county == event.county %}
+            {% if county.county == event.event_county %}
             <option selected>{{ county.county }}</option>
             {% else %}
             <option>{{ county.county }}</option>

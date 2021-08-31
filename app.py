@@ -157,8 +157,10 @@ def logout():
 
 @app.route("/view_map")
 def view_map():
+    events = list(mongo.db.events.find())
+    data = json_util.dumps(events)
     return render_template(
-        "view_map.html")
+        "view_map.html", events=data)
 
 
 
