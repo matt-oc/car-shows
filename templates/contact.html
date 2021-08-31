@@ -1,0 +1,30 @@
+<section>
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contact" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Something not right? Contact Us</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form action="https://formspree.io/f/mqkgvaea" method="POST" id="contact" class="contact-form">
+                <fieldset>
+                  <label for="name">Name:</label><br>
+                  <input type="text" id="name" required pattern="^[a-zA-Z0-9]{4,14}$" minlength="4" maxlength="25" required name="name"><br>
+                  <label for="email">Email:</label><br>
+                  <input type="Email" id="email" name="email" required><br>
+                  <label for="message">Message:</label><br>
+                  <textarea rows="4" id="message" name="message" required></textarea><br>
+                </fieldset>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="closeContactModal">Close</button>
+            <button type="submit" form="contact" class="btn btn-primary" id="contact-submit" data-submit="Sending">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

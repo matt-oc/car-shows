@@ -18,8 +18,8 @@
 <body>
 
   <!--Navigation Bar-->
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="{{ url_for('get_events') }}">Irish Car Shows</a>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="{{ url_for('get_events') }}"><img src="{{ url_for('static', filename='images/logo.svg') }}" class="logo"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,6 +27,9 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('get_events') }}">Events</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('view_map') }}">Map</a>
         </li>
         {% if session.user %}
         <li class="nav-item">
@@ -36,17 +39,17 @@
           <a class="nav-link" href="{{ url_for('add_event') }}">New Event</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+          <a class="nav-link" href="{{ url_for('logout') }}">Logout<i class="fas ml-2 fa-sign-out-alt"></i></a>
         </li>
         {% else %}
         <li class="nav-item">
           <button type="button" class="btn btn-nav" data-toggle="modal" data-target="#registerModal">
-            Register
+            <i class="fas fa-user-edit mr-1"></i>Register
           </button>
         </li>
         <li class="nav-item">
           <button type="button" class="btn btn-nav" data-toggle="modal" data-target="#loginModal">
-            Login
+            <i class="fas fa-user mr-1"></i>Login
           </button>
         </li>
       </ul>
@@ -81,17 +84,23 @@
 
   <!--Login-->
   {% include 'login.html' %}
-  <!--Register-->
 
+  <!--Register-->
   {% include 'register.html' %}
+
+  <!--Contact-->
+  {% include 'contact.html' %}
+
+
 
   <!--Footer-->
   <footer class="footer py-3">
     <div class="container">
       <div class="row">
         <div class="col-12 d-flex justify-content-center">
-          <span class="footer-credits">Site by: <a href="https://github.com/matt-oc" target="_blank"><i class="fab fa-github"></i></a></span>
-          <span class="footer-credits">Follow us on Facebook: <a href="https://www.facebook.com/aerialphotographyireland" target="_blank"><i class="fab fa-facebook-square"></i></a></span>
+          <span class="footer-item">Site by: <a href="https://github.com/matt-oc" target="_blank"><i class="fab fa-github"></i></a></span>
+          <span class="footer-item">Follow us on Facebook: <a href="https://www.facebook.com/groups/250213448769344" target="_blank"><i class="fab fa-facebook-square"></i></a></span>
+          <span class="footer-item">Need Help?: <a href="#0" data-toggle="modal" data-target="#contactModal"><i class="far fa-question-circle"></i></a></span>
         </div>
       </div>
     </div>

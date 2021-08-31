@@ -1,4 +1,6 @@
 import os
+import json
+from bson import json_util
 from flask import (
     Flask, flash, render_template, redirect,
     session, request, url_for, make_response)
@@ -8,6 +10,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bson.binary import Binary
 from werkzeug.utils import secure_filename
 import base64
+from flask import jsonify
 from io import BytesIO
 
 if os.path.exists("env.py"):
@@ -29,7 +32,7 @@ mongo = PyMongo(app)
 @app.route("/get_events")
 def get_events():
     admin = False
-    events = list(mongo.db.events.find())
+    events = list(mongo.db.events.find().sort("_id", -1))
     if session.get('user') is not None:
         # check if user is admin, if so admin True
         admins = mongo.db.admins.find_one({"admin": session['user']})
@@ -59,7 +62,7 @@ def search():
     images = []
     for event in events:
         images.append(event["event_image"])
-    return render_template("events.html", events=events, images=images, admin=admin)
+    return render_template("search_results.html", events=events, images=images, admin=admin, query=query)
 
 
 # Route for registration
@@ -87,7 +90,7 @@ def register():
         flash("Thanks for registering")
         return redirect(url_for("profile", username=session["user"]))
 
-    return render_template("events.html")
+    return redirect(url_for("get_events"))
 
 
 # Route for login
@@ -96,6 +99,15 @@ def login():
     if request.method == "POST":
         existing_user = mongo.db.users.find_one(
             {"user": request.form.get("name").lower()})
+
+
+        banned_user = mongo.db.banned.find_one(
+            {"user": request.form.get("name").lower()})
+
+        if banned_user:
+            flash("Sorry You have been banned, please contact Admin")
+            return redirect(url_for("get_events"))
+
 
         if existing_user:
             if check_password_hash(
@@ -106,11 +118,11 @@ def login():
 
             else:
                 flash("Incorrect login details")
-                return render_template("events.html")
+                return redirect(url_for("get_events"))
         else:
             flash("Incorrect login details")
             return render_template("events.html")
-    return render_template("events.html")
+    return redirect(url_for("get_events"))
 
 
 # Route for profile
@@ -130,10 +142,12 @@ def profile(username):
         images.append(event["event_image"])
 
     if session["user"]:
+        admin = verify_user()
         return render_template(
             "profile.html", username=username,
             email=email, car=car, user_events=user_events,
-            images=images)
+            images=images, admin=admin)
+
     return redirect(url_for("get_events"))
 
 
@@ -142,6 +156,14 @@ def logout():
     flash("Successfully logged out")
     session.pop("user")
     return redirect(url_for("get_events"))
+
+
+@app.route("/view_map")
+def view_map():
+    events = list(mongo.db.events.find())
+    data = json_util.dumps(events)
+    return render_template(
+        "view_map.html", events=data)
 
 
 @app.route("/add_event", methods=["GET", "POST"])
@@ -153,7 +175,6 @@ def add_event():
             file = request.files['eventImage']
             filename = request.form.get("eventName")
             # storing the filename in the database to retreive the image
-            print(filename)
             mongo.save_file(filename, file)
 
         event = {
@@ -166,12 +187,84 @@ def add_event():
             "category_name": request.form.get("categoryInput"),
             "event_county": request.form.get("countyInput"),
             "event_description": request.form.get("eventDescription"),
+
+            "created_by": session["user"],
+            "lat": request.form.get("lat"),
+            "lng": request.form.get("lng")
+        }
+
+        mongo.db.events.insert_one(event)
+        flash("Event added successfully")
+        return redirect(url_for("get_events"))
+
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    counties = mongo.db.counties.find().sort("county", 1)
+    return render_template(
+        "add_event.html", categories=categories, counties=counties)
+
+
+@app.route("/admin_tools")
+def admin_tools():
+    admins = mongo.db.admins.find().sort("admin", 1)
+    banned = mongo.db.banned.find().sort("county", 1)
+    users = list(mongo.db.users.find().sort("user", 1))
+    return render_template(
+        "admin_tools.html", banned=banned, admins=admins, users=users)
+
+
+@app.route("/ban_user", methods=["GET", "POST"])
+def ban_user():
+    if request.method == "POST":
+        selection = request.form.get("userInput")
+        existing_banned = mongo.db.banned.find_one(
+            {"user": selection})
+        if existing_banned:
+            flash("User already banned")
+            return redirect(url_for("admin_tools"))
+        else:
+            mongo.db.banned.insert_one({"user": selection})
+            flash("User sucessfully banned")
+            return redirect(url_for("admin_tools"))
+
+
+@app.route("/unban_user", methods=["GET", "POST"])
+def unban_user():
+    if request.method == "POST":
+        selection = request.form.get("bannedUserInput")
+        mongo.db.banned.remove({"user": selection})
+        flash("User sucessfully unbanned")
+        return redirect(url_for("admin_tools"))
             "created_by": session["user"]
         }
 
         mongo.db.events.insert_one(event)
         flash("Event added successfully")
         return redirect(url_for("get_events"))
+
+
+@app.route("/add_admin", methods=["GET", "POST"])
+def add_admin():
+    if request.method == "POST":
+        selection = request.form.get("adminInput")
+        existing_admin = mongo.db.admins.find_one(
+            {"admin": selection})
+        if existing_admin:
+            flash("User already admin")
+            return redirect(url_for("admin_tools"))
+        else:
+            mongo.db.admins.insert_one({"admin": selection})
+            flash("User sucessfully made admin")
+            return redirect(url_for("admin_tools"))
+
+
+@app.route("/remove_admin", methods=["GET", "POST"])
+def remove_admin():
+    if request.method == "POST":
+        selection = request.form.get("adminInput")
+        mongo.db.banned.remove({"admin": selection})
+        flash("Admin sucessfully removed")
+        return redirect(url_for("admin_tools"))
+
 
     categories = mongo.db.categories.find().sort("category_name", 1)
     counties = mongo.db.counties.find().sort("county", 1)
@@ -202,6 +295,29 @@ def delete_event(event_id):
     return redirect(url_for("get_events"))
 
 
+@app.route("/view_event/<event_id>")
+def view_event(event_id):
+    event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
+    admin = verify_user()
+    images = []
+    images.append(event["event_image"])
+    return render_template("event.html", event=event, images=images, admin=admin)
+
+
+@app.route("/attend_event/<event_id>")
+def attend_event(event_id):
+    mongo.db.events.update_one({"_id": ObjectId(event_id)}, {'$push': {'attendees': session["user"]}})
+    flash("You are attending this event")
+    return redirect(url_for("get_events"))
+
+
+@app.route("/dismiss_event/<event_id>")
+def dismiss_event(event_id):
+    mongo.db.events.update_one({"_id": ObjectId(event_id)}, {'$pull': {'attendees': {'$in': [session["user"]]}}})
+    flash("You are not attending this event")
+    return redirect(url_for("get_events"))
+
+
 # Route to edit event
 @app.route("/edit_event/<event_id>", methods=["GET", "POST"])
 def edit_event(event_id):
@@ -223,7 +339,9 @@ def edit_event(event_id):
             "category_name": request.form.get("categoryInput"),
             "event_county": request.form.get("countyInput"),
             "event_description": request.form.get("eventDescription"),
-            "created_by": session["user"]
+            "created_by": session["user"],
+            "lat": request.form.get("lat"),
+            "lng": request.form.get("lng")
         }
 
         mongo.db.events.update({"_id": ObjectId(event_id)}, event)
@@ -232,9 +350,30 @@ def edit_event(event_id):
     event = mongo.db.events.find_one({"_id": ObjectId(event_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
     counties = mongo.db.counties.find().sort("county", 1)
-    return render_template(
-        "edit_event.html",
-        event=event, categories=categories, counties=counties)
+    images = []
+    for e in event:
+        images.append(event["event_image"])
+    return render_template("edit_event.html", categories=categories, counties=counties, event=event)
+
+
+# API expose
+@app.route("/get_events_api")
+def get_events_api():
+    events = list(mongo.db.events.find())
+    return jsonify(json.loads(json_util.dumps(events)))
+
+
+def verify_user():
+    admin = False
+    if session.get('user') is not None:
+        # check if user is admin, if so admin True
+        admins = mongo.db.admins.find_one({"admin": session['user']})
+        if admins:
+            admin = True
+            return admin
+        else:
+            admin = False
+            return admin
 
 
 if __name__ == "__main__":

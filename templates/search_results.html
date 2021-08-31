@@ -14,7 +14,7 @@
 <!--/Search Bar-->
 
 {% if events|length > 0 %}
-<h2> All Events: </h2>
+<h2> Results for {{ query }} : </h2>
 {% for event in events %}
 <div class="row p-0">
   <div class="col-12 d-flex justify-content-center p-0 content">
@@ -37,6 +37,7 @@
     </div>
   </div>
 </div>
+
 
 
 {% endfor %}

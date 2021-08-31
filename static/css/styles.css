@@ -15,7 +15,7 @@ body {
   margin-bottom: 40px;
 }
 
-h1, h2, h4 {
+h1, h2, h4, h5 {
   text-align: center;
 }
 
@@ -26,6 +26,7 @@ h1 {
 h2 {
   font-size: 2.5rem;
   margin: 40px 0 40px 0;
+  font-weight: 800;
   font-family: 'Nunito', sans-serif;
 }
 
@@ -33,26 +34,47 @@ h3 {
   font-size: 2.2rem;
 }
 
+h4 {
+  font-size: 1.2rem
+}
+
+h5 {
+  font-size: 1.7rem;
+  margin: 20px;
+}
+
 strong {
   color: #333634;
 }
 
+a {
+  color: #219FBC;
+}
+
+a:hover {
+  color: #9AB879;
+}
+
 .navbar {
-  background-color: #c0edc9;
+  background-color: #49284F;
   color: #000000;
 }
 
 .navbar-brand {
   font-family: 'Nunito', sans-serif;
   font-size: 1.75rem;
-  color: #000
+  color: #000;
 }
 
-.register-form, .login-form {
+.nav-item {
+  margin: 0 12px 0 12px;
+}
+
+.register-form, .login-form, .contact-form {
   padding: 20px;
 }
 
-.register-form input, .login-form input {
+.register-form input, .login-form input, .contact-form input, .contact-form textarea {
   max-width: 500px;
   width: 100%;
   display: flex;
@@ -64,12 +86,32 @@ strong {
   object-fit: cover;
 }
 
-.add-event-form {
+.add-event-form, .edit-event-form, .admin-form {
   max-width: 1200px;
   width: 50%;
   padding: 50px;
-  background-color: rgba(178, 212, 187, .7);
+  background-color: rgba(178, 212, 187, .4);
   border-radius: 20px;
+}
+
+.admin-form {
+  width: 80%;
+}
+
+.map {
+  width: 100%;
+  height: 300px;
+}
+
+.full-map .map {
+  width: 100%;
+  height: 70vh;
+}
+
+.navbar-brand img {
+  height: 60px;
+    margin-top: -12px;
+    margin-bottom: -12px;
 }
 
 .form-image {
@@ -78,6 +120,10 @@ strong {
 
 .form-group {
   margin-bottom: 1.5rem
+}
+
+.short {
+  width: 25%;
 }
 
 #eventImage {
@@ -92,12 +138,24 @@ strong {
   margin-left: 10px;
 }
 
-.green {
-  color: #04852f;
+.blue {
+  color: #219ebc;
+}
+
+.orange {
+  color: #9ab87a;
 }
 
 .right {
   float: right;
+}
+
+.left {
+  float: left;
+}
+
+.back {
+  font-size: 1.2rem
 }
 
 .card {
@@ -106,17 +164,34 @@ strong {
 }
 
 .btn-primary {
-  background-color: #DC565C;
-  border-color: #DC565C;
+  background-color: #9ab87a;
+  border-color: #9ab87a;
+}
+
+.btn-primary:hover {
+  border-color: #9ab87a!important;
 }
 
 .btn-nav {
   margin-right: 5px;
-  background-color: rgba(178, 212, 187, .7);
+  background-color: rgba(240,160,122, 1);
+  border-bottom-left-radius: 10px;
 }
 
 .btn-nav:hover {
-  background-color: rgba(178, 212, 187, 1);
+  background-color: rgba(240,160,122, .7);
+}
+
+.attend li{
+  display: inline;
+}
+
+.attend {
+  margin: 2rem;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255,1);
 }
 
 .btn-primary:hover {
@@ -133,8 +208,20 @@ strong {
   width: 50%;
 }
 
+.search-button {
+  border-radius: 80px;
+  height: 3rem;
+  width: 3rem;
+  background-color: #9ab87a;
+}
+
+.search-button:hover {
+  background-color: #9ab87a;
+  border: 1px solid #48294F;
+}
+
 #query {
-  padding: 20px;
+  padding: 28px;
   width: 100%;
 }
 
@@ -148,21 +235,22 @@ strong {
   margin-top: 70px;
   margin-bottom: 0px;
   font-size: 1.1rem;
-  background-color: #c0edc9;
+  background-color: #49284F;
   font-family: 'Nunito', sans-serif;
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
+  color: #fff;
 }
 
 .footer i {
-  color: #000;
+  color: #9ab87a;
   font-size: 1.4rem;
   margin-left: 5px;
 }
 
-.footer-credits {
+.footer-item {
   margin: 0 20px 0 20px;
   opacity: .7
 }
@@ -188,6 +276,9 @@ strong {
   .add-event-form, .edit-event-form {
     width: 85%;
   }
+  .nav-item {
+    margin: 10px;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -197,5 +288,11 @@ strong {
 
   .search-input {
     width: 80%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .navbar-brand img {
+    height: 40px;
   }
 }
