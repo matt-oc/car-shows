@@ -100,12 +100,14 @@ def login():
         existing_user = mongo.db.users.find_one(
             {"user": request.form.get("name").lower()})
 
+
         banned_user = mongo.db.banned.find_one(
             {"user": request.form.get("name").lower()})
 
         if banned_user:
             flash("Sorry You have been banned, please contact Admin")
             return redirect(url_for("get_events"))
+
 
         if existing_user:
             if check_password_hash(
@@ -145,6 +147,7 @@ def profile(username):
             "profile.html", username=username,
             email=email, car=car, user_events=user_events,
             images=images, admin=admin)
+
     return redirect(url_for("get_events"))
 
 
@@ -161,7 +164,6 @@ def view_map():
     data = json_util.dumps(events)
     return render_template(
         "view_map.html", events=data)
-
 
 
 @app.route("/add_event", methods=["GET", "POST"])
@@ -185,6 +187,7 @@ def add_event():
             "category_name": request.form.get("categoryInput"),
             "event_county": request.form.get("countyInput"),
             "event_description": request.form.get("eventDescription"),
+
             "created_by": session["user"],
             "lat": request.form.get("lat"),
             "lng": request.form.get("lng")
@@ -231,6 +234,12 @@ def unban_user():
         mongo.db.banned.remove({"user": selection})
         flash("User sucessfully unbanned")
         return redirect(url_for("admin_tools"))
+            "created_by": session["user"]
+        }
+
+        mongo.db.events.insert_one(event)
+        flash("Event added successfully")
+        return redirect(url_for("get_events"))
 
 
 @app.route("/add_admin", methods=["GET", "POST"])
@@ -255,6 +264,12 @@ def remove_admin():
         mongo.db.banned.remove({"admin": selection})
         flash("Admin sucessfully removed")
         return redirect(url_for("admin_tools"))
+
+
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    counties = mongo.db.counties.find().sort("county", 1)
+    return render_template(
+        "add_event.html", categories=categories, counties=counties)
 
 
 # Gracefully handle errors/ missing pages
