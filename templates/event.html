@@ -29,36 +29,45 @@
         <p class="card-text"><strong>Attendees:</strong> {{ event.attendees|length }}</p>
         <p class="card-text">{{ event.event_description }}</p>
         <p class="card-text"><small class="text-muted right">posted by: {{ event.created_by }}</small></p>
-        <a href="#" class="fb" onclick="fbShare()" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-        <a href="#" class="tw twitter-share" onclick="twShare()" title="Share on Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-        {% if session.user == event.created_by or admin == true %}
-        <a class="btn btn-primary" href="{{url_for('delete_event', event_id=event._id)}}" onclick="return confirm('Are you sure you want to delete?');" role="button">Delete</a>
-        <a class="btn btn-primary" href="{{url_for('edit_event', event_id=event._id)}}" role="button">Edit</a>
-        {% endif %}
-        {% for attendee in event.attendees %}
-        {% if session.user == attendee %}
-        <a class="btn btn-primary" href="{{url_for('dismiss_event', event_id=event._id)}}" role="button">Not Going</a>
-        {% elif session.user != attendee and loop.last %}
-        <a class="btn btn-primary" href="{{url_for('attend_event', event_id=event._id)}}" role="button">Going</a>
-        {% endif %}
-        {% endfor%}
-        {% if event.attendees|length == 0 %}
-        <a class="btn btn-primary" href="{{url_for('attend_event', event_id=event._id)}}" role="button">Going</a>
-        {% endif %}
-        <ul class="attend">
-          <small class="text-muted left">Attendees:</small>
+        <div class="col-12 d-flex justify-content-end">
+          <a href="#" class="fb m-2" onclick="fbShare()" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+          <a href="#" class="tw twitter-share m-2" onclick="twShare()" title="Share on Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+        </div>
+        <div class="col-12 d-flex justify-content-start mb-3">
+          {% if session.user == event.created_by or admin == true %}
+          <a class="btn btn-primary mr-2" href="{{url_for('delete_event', event_id=event._id)}}" onclick="return confirm('Are you sure you want to delete?');" role="button">Delete</a>
+          <a class="btn btn-primary mr-2" href="{{url_for('edit_event', event_id=event._id)}}" role="button">Edit</a>
+          {% endif %}
           {% for attendee in event.attendees %}
-          {% if loop.last %}
-          <li> {{ attendee }}</li>
-          {% else %}
-          <li> {{ attendee }}, </li>
-          {% endif%}
+          {% if session.user == attendee %}
+          <a class="btn btn-primary mr-2" href="{{url_for('dismiss_event', event_id=event._id)}}" role="button">Not Going</a>
+          {% elif session.user != attendee and loop.last %}
+          <a class="btn btn-primary mr-2" href="{{url_for('attend_event', event_id=event._id)}}" role="button">Going</a>
+          {% endif %}
           {% endfor%}
-          <div class="row">
-            <div class="col-12 d-flex justify-content-center p-0 mb-0 content">
-              <div class="map" id='gmap_canvas' data-lat="{{ event.lat }}" data-lng="{{ event.lng }}"></div>
-              </div>
-            </div>
+          {% if event.attendees|length == 0 %}
+          <a class="btn btn-primary mr-2" href="{{url_for('attend_event', event_id=event._id)}}" role="button">Going</a>
+          {% endif %}
+        </div>
+        <div class="row">
+          <div class="col-12 d-flex justify-content-center p-0 mb-0 content">
+            <div class="map" id='gmap_canvas' data-lat="{{ event.lat }}" data-lng="{{ event.lng }}"></div>
+          </div>
+        </div>
+        {% if event.attendees|length != 0 %}
+        <div class="col-12 d-flex justify-content-start">
+          <ul class="attend">
+            <small class="text-muted">Attendees:</small>
+            {% for attendee in event.attendees %}
+            {% if loop.last %}
+            <li><small class="text-muted"> {{ attendee }}</small></li>
+            {% else %}
+            <li><small class="text-muted">{{ attendee }},</small></li>
+            {% endif%}
+            {% endfor%}
+          </ul>
+        </div>
+        {% endif %}
       </div>
     </div>
   </div>
