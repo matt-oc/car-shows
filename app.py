@@ -233,7 +233,7 @@ def unban_user():
         mongo.db.banned.remove({"user": selection})
         flash("User sucessfully unbanned")
         return redirect(url_for("admin_tools"))
-        
+
 
         mongo.db.events.insert_one(event)
         flash("Event added successfully")
@@ -259,7 +259,7 @@ def add_admin():
 def remove_admin():
     if request.method == "POST":
         selection = request.form.get("adminInput")
-        mongo.db.banned.remove({"admin": selection})
+        mongo.db.admins.remove({"admin": selection})
         flash("Admin sucessfully removed")
         return redirect(url_for("admin_tools"))
 
