@@ -32,7 +32,7 @@ mongo = PyMongo(app)
 @app.route("/get_events")
 def get_events():
     admin = False
-    events = list(mongo.db.events.find())
+    events = list(mongo.db.events.find().sort("_id", -1))
     if session.get('user') is not None:
         # check if user is admin, if so admin True
         admins = mongo.db.admins.find_one({"admin": session['user']})
@@ -338,7 +338,7 @@ def edit_event(event_id):
     images = []
     for e in event:
         images.append(event["event_image"])
-    return render_template("edit_event.html", e=event, categories=categories, counties=counties, event=event)
+    return render_template("edit_event.html", categories=categories, counties=counties, event=event)
 
 
 # API expose
