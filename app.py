@@ -207,8 +207,9 @@ def admin_tools():
     admins = mongo.db.admins.find().sort("admin", 1)
     banned = mongo.db.banned.find().sort("county", 1)
     users = list(mongo.db.users.find().sort("user", 1))
+    admin = verify_user()
     return render_template(
-        "admin_tools.html", banned=banned, admins=admins, users=users)
+        "admin_tools.html", banned=banned, admins=admins, users=users, admin=admin)
 
 
 @app.route("/ban_user", methods=["GET", "POST"])
