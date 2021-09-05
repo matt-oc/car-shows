@@ -15,7 +15,7 @@
 {% if event|length > 0 %}
 <div class="row p-0">
   <div class="col-12 d-flex justify-content-center p-0 content">
-    <div class="card mb-3 w-md-60">
+    <div class="card mb-3 w-lg-90">
       <img class="card-img-top" src="{{ url_for('file', filename=images[0]) }}" alt="Event image" onerror="this.src='/static/images/default-event.jpg'">
       <div class="card-body">
         <h3 class="card-title">{{ event.event_name }}</h3>
