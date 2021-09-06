@@ -35,11 +35,7 @@ def get_events():
     events = list(mongo.db.events.find().sort("_id", -1))
     if session.get('user') is not None:
         # check if user is admin, if so admin True
-        admins = mongo.db.admins.find_one({"admin": session['user']})
-        if admins:
-            admin = True
-        else:
-            admin = False
+        verify_user()
     images = []
     for event in events:
         images.append(event["event_image"])
@@ -54,11 +50,7 @@ def search():
     events = list(mongo.db.events.find({"$text": {"$search": query}}))
     if session.get('user') is not None:
         # check if user is admin, if so admin True
-        admins = mongo.db.admins.find_one({"admin": session['user']})
-        if admins:
-            admin = True
-        else:
-            admin = False
+        verify_user()
     images = []
     for event in events:
         images.append(event["event_image"])
